@@ -23,6 +23,7 @@
             font-family: 'Lora', serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            width: 100%;
         }
 
         h1, h2, h3, .heading-font {
@@ -33,6 +34,11 @@
         .handwritten { font-family: 'Handlee', cursive; color: var(--logo-red); }
         .paper-texture { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
         .hero-overlay { background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%); }
+
+        /* Fix for Hero Overlay on Mobile to keep text readable when centered */
+        @media (max-width: 768px) {
+            .hero-overlay { background: rgba(0,0,0,0.6); }
+        }
 
         .btn-red {
             background-color: var(--logo-red);
@@ -46,31 +52,25 @@
             box-shadow: 0 12px 20px -10px rgba(227, 24, 55, 0.5);
         }
 
-        /* Delivery Partner Button Styles */
+        /* Delivery Partner Icons Centering */
         .partner-link {
             display: flex;
             align-items: center;
             justify-content: center;
             background: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
             height: 60px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto; /* Added for mobile centering */
         }
+        @media (min-width: 768px) { .partner-link { margin: 0; } }
 
-        .partner-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
-            background: #fff;
-        }
-
-        .partner-img {
-            height: 100%;
-            width: auto;
-            max-width: 140px;
-            object-fit: contain;
-        }
+        .partner-link:hover { transform: scale(1.05); box-shadow: 0 10px 15px rgba(0,0,0,0.3); }
+        .partner-img { height: 100%; width: auto; object-fit: contain; }
 
         .menu-card {
             background: white;
@@ -78,12 +78,48 @@
             cursor: pointer;
             border: 8px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px; /* Prevents card from being too wide on mobile */
+            margin: 0 auto;
         }
-
         .menu-card:hover { transform: translateY(-15px); border-color: var(--logo-red); }
 
-        #lightbox { backdrop-filter: blur(15px); }
-        
+        /* Lightbox Mobile Fix */
+        #lightbox {
+            backdrop-filter: blur(15px);
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 100;
+            padding: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox img {
+            max-height: 80vh;
+            max-width: 90%;
+            width: auto;
+            margin: auto;
+            display: block;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .lightbox-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            opacity: 0.7;
+            transition: 0.3s;
+            z-index: 110;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            padding: 5px;
+        }
+        .lightbox-btn:hover { opacity: 1; color: var(--logo-red); }
+
         #smoke-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -97,50 +133,45 @@
 
 <body class="paper-texture">
 
-    <!-- Top Bar -->
     <div class="bg-[var(--logo-black)] text-white py-2 px-6 flex justify-between items-center text-[10px] md:text-xs uppercase tracking-[0.2em] z-[60] relative">
         <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3 text-[var(--logo-red)]"></i> 100% Halal Mediterranean Grill</span>
         <span class="hidden md:flex items-center gap-2 font-bold italic"><i data-lucide="phone" class="w-3 h-3 text-[var(--logo-red)]"></i> (661) 360-3026</span>
     </div>
 
-    <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 px-6 py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
-                <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" class="w-12 h-12 rounded-full border border-gray-100" alt="Sierra Grill House Logo">
+                <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" class="w-10 h-10 rounded-full" alt="Logo">
                 <div class="flex flex-col">
                     <span class="text-xl md:text-2xl font-bold heading-font leading-none uppercase tracking-tight">Sierra <span class="text-[var(--logo-red)]">Grill House</span></span>
-                    <span class="text-[9px] uppercase tracking-[0.3em] text-gray-400 font-bold">Mediterranean & Greek Kitchen</span>
                 </div>
             </a>
             <div class="hidden lg:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
                 <a href="#menu" class="hover:text-[var(--logo-red)] transition-colors">Menu</a>
-                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors">Order Online</a>
-                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors">Contact</a>
+                <a href="#story" class="hover:text-[var(--logo-red)] transition-colors">Our Story</a>
+                <a href="#reviews" class="hover:text-[var(--logo-red)] transition-colors">Reviews</a>
+                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors text-[var(--logo-red)]">Order Online</a>
             </div>
-            <div class="flex gap-3 items-center">
-                <a href="tel:6613603026" class="btn-red px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg rounded">
-                    <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call
-                </a>
-            </div>
+            <a href="tel:6613603026" class="btn-red px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg rounded">
+                <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call
+            </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="relative min-h-[85vh] flex items-center overflow-hidden">
         <canvas id="smoke-canvas"></canvas>
         <div class="absolute inset-0 -z-10">
-            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" class="w-full h-full object-cover" alt="Grilled Kabob Background">
+            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" class="w-full h-full object-cover" alt="Background">
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
-        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
-            <div class="max-w-2xl reveal active">
-                <p class="handwritten text-3xl mb-4 text-white opacity-90">Join our table in Canyon Country</p>
-                <h1 class="text-5xl md:text-8xl heading-font mb-6 leading-[1.1] text-white">Authentic Fire, <br><span class="text-[var(--logo-red)]">Family</span> Soul</h1>
-                <p class="text-xl text-gray-200 mb-10 leading-relaxed font-light">
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 text-center md:text-left">
+            <div class="max-w-2xl reveal active mx-auto md:mx-0">
+                <p class="handwritten text-2xl md:text-3xl mb-4 text-white opacity-90">Join our table in Canyon Country</p>
+                <h1 class="text-4xl md:text-8xl heading-font mb-6 leading-[1.1] text-white">Authentic Fire, <br><span class="text-[var(--logo-red)]">Family</span> Soul</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
                     100% Halal flame-grilled flavors. Greek and Armenian recipes passed down through generations.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-5">
+                <div class="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
                     <a href="#menu" class="btn-red px-12 py-5 text-center font-bold uppercase tracking-widest text-xs shadow-2xl">View the Menu</a>
                     <a href="#order" class="bg-white/10 backdrop-blur-md border-2 border-white text-white px-12 py-5 text-center font-bold hover:bg-white hover:text-black transition-all uppercase tracking-widest text-xs">Order Online</a>
                 </div>
@@ -148,25 +179,24 @@
         </div>
     </section>
 
-    <!-- MENU SECTION -->
-    <section id="menu" class="py-32 bg-[var(--warm-bg)]">
+    <section id="menu" class="py-20 md:py-32 bg-[var(--warm-bg)]">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="mb-24 reveal">
+            <div class="mb-16 md:mb-24 reveal">
                 <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Freshly Prepared</span>
-                <h2 class="text-6xl md:text-8xl heading-font mt-4 mb-6 tracking-tighter">THE MENU</h2>
+                <h2 class="text-5xl md:text-8xl heading-font mt-4 mb-6 tracking-tighter">THE MENU</h2>
                 <div class="w-24 h-1.5 bg-[var(--logo-red)] mx-auto rounded-full"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
-                <div class="menu-card reveal" onclick="openSlider(0)">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 relative z-10 justify-items-center">
+                <div class="menu-card reveal w-full" onclick="openSlider(0)">
                     <img src="https://i.imgur.com/23YXNNB.jpg" class="w-full h-auto" alt="Menu Plates">
                     <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Plates</p>
                 </div>
-                <div class="menu-card reveal" style="transition-delay: 0.1s" onclick="openSlider(1)">
+                <div class="menu-card reveal w-full" style="transition-delay: 0.1s" onclick="openSlider(1)">
                     <img src="https://i.imgur.com/Oo0yhqX.jpg" class="w-full h-auto" alt="Menu Appetizers">
-                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Sides & Drinks</p>
+                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Appetizers & Drinks</p>
                 </div>
-                <div class="menu-card reveal" style="transition-delay: 0.2s" onclick="openSlider(2)">
+                <div class="menu-card reveal w-full" style="transition-delay: 0.2s" onclick="openSlider(2)">
                     <img src="https://i.imgur.com/WVPKgPk.jpg" class="w-full h-auto" alt="Menu Wraps">
                     <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Wraps & Salads</p>
                 </div>
@@ -174,61 +204,104 @@
         </div>
     </section>
 
-    <!-- Contact & Delivery -->
-    <section id="order" class="py-32 px-6 bg-[var(--logo-black)] text-white">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-            <div class="reveal">
-                <h2 class="text-4xl heading-font mb-4 italic uppercase tracking-widest">Order Now</h2>
-                <p class="text-gray-400 mb-10 text-sm">Select a delivery service below to start your order:</p>
+    <section id="reviews" class="py-20 md:py-32 px-6 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="text-center mb-20 reveal">
+                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Kind Words</span>
+                <h2 class="text-4xl md:text-5xl heading-font mt-4 italic">Neighbor Reviews</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 justify-items-center">
+                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm">
+                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
+                    <p class="italic text-gray-600 mb-8 text-sm text-center">"The filet mignon plate was so tender. The Greek salad was exactly like the original in Greece!"</p>
+                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Yelp Review</p>
+                </div>
+                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm" style="transition-delay: 0.1s">
+                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
+                    <p class="italic text-gray-600 mb-8 text-sm text-center">"Hidden gem for sure. The staff are wonderful, and the place is spotless. 10/10."</p>
+                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Tina O.</p>
+                </div>
+                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm" style="transition-delay: 0.2s">
+                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
+                    <p class="italic text-gray-600 mb-8 text-sm text-center">"Excellent service. The lamb chops are excellent! decorated simply and nicely."</p>
+                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Cher H.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="py-20 md:py-32 px-6 bg-[var(--warm-bg)]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
+            <div class="relative reveal flex justify-center">
+                <div class="bg-white p-5 shadow-2xl md:rotate-2 border border-gray-100 relative z-10 max-w-[350px] md:max-w-[400px]">
+                    <img src="https://s3-media0.fl.yelpcdn.com/bphoto/1Lz_JyZBbQ4MVed-_RR3cw/o.jpg" class="rounded-sm h-[350px] md:h-[400px] w-full object-cover" alt="Exterior">
+                    <p class="handwritten text-2xl text-center mt-4">Cooking with heart</p>
+                </div>
+            </div>
+            
+            <div class="reveal text-center md:text-left">
+                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Our Roots</span>
+                <h2 class="text-4xl md:text-6xl heading-font mt-6 mb-10 leading-tight">Mediterranean Soul <br>& 100% Halal</h2>
+                <p class="text-gray-600 leading-relaxed text-lg font-light mb-8 max-w-lg mx-auto md:mx-0">Sierra Grill House was built on generations of culinary traditions. We blend old-world recipes from Greece and Armenia with fresh, quality ingredients.</p>
                 
-                <!-- DELIVERY PARTNERS GRID -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-                    <!-- DoorDash -->
+                <div class="bg-white p-8 border-l-[6px] border-[var(--logo-red)] italic text-stone-700 shadow-xl rounded-r-lg text-left inline-block max-w-sm mx-auto md:mx-0">
+                    "It makes our family happy when our customers enjoy their time and food." <br>
+                    <span class="block mt-4 font-bold not-italic text-[var(--logo-black)]">— Alexandros B., Owner</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="py-20 md:py-32 px-6 bg-[var(--logo-black)] text-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="reveal text-center md:text-left">
+                <h2 class="text-4xl heading-font mb-4 italic uppercase tracking-widest">Order Now</h2>
+                <p class="text-gray-400 mb-10 text-sm">Delivery via our partners:</p>
+                
+                <div class="flex flex-col items-center md:items-start gap-6 mb-16">
                     <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="partner-link">
                         <img src="https://www.shutterstock.com/image-vector/kerala-india-09082023-doordash-food-600nw-2344891519.jpg" alt="DoorDash" class="partner-img">
                     </a>
-                    <!-- Uber Eats -->
                     <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
                         <img src="https://img.icons8.com/color/1200/uber-eats-app.jpg" alt="Uber Eats" class="partner-img">
                     </a>
-                    <!-- Postmates -->
                     <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
                         <img src="https://techcrunch.com/wp-content/uploads/2013/05/newpmlogo.png" alt="Postmates" class="partner-img">
                     </a>
                 </div>
 
-                <div class="space-y-8">
-                    <div class="flex gap-6 items-center">
-                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--logo-red)]"><i data-lucide="map-pin"></i></div>
-                        <p class="text-lg">27540 Sierra Hwy, Canyon Country, CA 91351</p>
+                <div class="space-y-8 flex flex-col items-center md:items-start">
+                    <div class="flex items-center gap-6">
+                        <i data-lucide="map-pin" class="text-[var(--logo-red)]"></i>
+                        <p class="text-md md:text-lg">27540 Sierra Hwy, Canyon Country, CA 91351</p>
                     </div>
-                    <div class="flex gap-6 items-center">
-                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--logo-red)]"><i data-lucide="phone"></i></div>
-                        <p class="text-3xl font-bold">(661) 360-3026</p>
+                    <div class="flex items-center gap-6">
+                        <i data-lucide="phone" class="text-[var(--logo-red)] text-2xl"></i>
+                        <p class="text-2xl md:text-3xl font-bold">(661) 360-3026</p>
                     </div>
                 </div>
             </div>
             
-            <div class="rounded-2xl overflow-hidden shadow-2xl border-[8px] border-white/10 h-[450px] reveal">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.565863261271!2d-118.4582644234509!3d34.41557099898031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2898f9ca053e3%3A0x6fbac75f251febc1!2sSierra%20Grill%20House!5e0!3m2!1sen!2sus!4v1711467400000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="rounded-2xl overflow-hidden shadow-2xl border-[8px] border-white/10 h-[300px] md:h-[400px] reveal">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.758362635467!2d-118.4682442!3d34.4328574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28f090d800001%3A0x6d705c8628b0f43!2s27540%20Sierra%20Hwy%2C%20Canyon%20Country%2C%20CA%2091351!5e0!3m2!1sen!2sus!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[100] p-4" onclick="if(event.target.id === 'lightbox') closeSlider()">
-        <button onclick="closeSlider()" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"><i data-lucide="x" class="w-10 h-10"></i></button>
-        <div class="flex items-center justify-between w-full max-w-5xl">
-            <button onclick="changeSlide(-1)" class="p-4 text-white hover:text-[var(--logo-red)]"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
-            <img id="slider-img" src="" class="max-h-[85vh] max-w-full rounded shadow-2xl transition-opacity duration-300">
-            <button onclick="changeSlide(1)" class="p-4 text-white hover:text-[var(--logo-red)]"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
-        </div>
+    <footer class="py-12 px-6 bg-white text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">© 2026 Sierra Grill House. 100% Halal Mediterranean soul.</p>
+    </footer>
+
+    <div id="lightbox" onclick="if(event.target.id === 'lightbox') closeSlider()">
+        <button onclick="closeSlider()" class="absolute top-6 right-6 text-white/50 hover:text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <button onclick="changeSlide(-1)" class="lightbox-btn left-2 md:left-10"><i data-lucide="chevron-left" class="w-10 h-10 md:w-12 md:h-12"></i></button>
+        <img id="slider-img" src="">
+        <button onclick="changeSlide(1)" class="lightbox-btn right-2 md:right-10"><i data-lucide="chevron-right" class="w-10 h-10 md:w-12 md:h-12"></i></button>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Reveal on scroll
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -238,7 +311,6 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // Smoke Animation
         const canvas = document.getElementById('smoke-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -255,11 +327,10 @@
         function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
         init(); animate();
 
-        // Slider Logic
         const menuImages = ["https://i.imgur.com/23YXNNB.jpg", "https://i.imgur.com/Oo0yhqX.jpg", "https://i.imgur.com/WVPKgPk.jpg"];
         let currentSlide = 0;
-        function openSlider(index) { currentSlide = index; updateSlider(); document.getElementById('lightbox').classList.replace('hidden', 'flex'); document.body.style.overflow = 'hidden'; }
-        function closeSlider() { document.getElementById('lightbox').classList.replace('flex', 'hidden'); document.body.style.overflow = 'auto'; }
+        function openSlider(index) { currentSlide = index; updateSlider(); document.getElementById('lightbox').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeSlider() { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = 'auto'; }
         function changeSlide(dir) { currentSlide = (currentSlide + dir + menuImages.length) % menuImages.length; updateSlider(); }
         function updateSlider() { const img = document.getElementById('slider-img'); img.style.opacity = '0'; setTimeout(() => { img.src = menuImages[currentSlide]; img.style.opacity = '1'; }, 150); }
     </script>
