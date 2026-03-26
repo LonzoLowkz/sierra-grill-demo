@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sierra Grill House | 100% Halal Mediterranean & Greek Grill</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,500;1,400&family=Handlee&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --logo-red: #e31837;
+            --logo-black: #0a0a0a;
+            --off-white: #ffffff;
+            --warm-bg: #f9f7f5;
+        }
+
+        body {
+            background-color: var(--off-white);
+            color: var(--logo-black);
+            font-family: 'Lora', serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .heading-font {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        .handwritten { font-family: 'Handlee', cursive; color: var(--logo-red); }
+        .paper-texture { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
+        .hero-overlay { background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%); }
+
+        .btn-red {
+            background-color: var(--logo-red);
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-red:hover {
+            background-color: var(--logo-black);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -10px rgba(227, 24, 55, 0.5);
+        }
+
+        /* Delivery Partner Button Styles */
+        .partner-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            height: 60px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .partner-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+            background: #fff;
+        }
+
+        .partner-img {
+            height: 100%;
+            width: auto;
+            max-width: 140px;
+            object-fit: contain;
+        }
+
+        .menu-card {
+            background: white;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .menu-card:hover { transform: translateY(-15px); border-color: var(--logo-red); }
+
+        #lightbox { backdrop-filter: blur(15px); }
+        
+        #smoke-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; opacity: 0.3; z-index: 2;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+
+<body class="paper-texture">
+
+    <!-- Top Bar -->
+    <div class="bg-[var(--logo-black)] text-white py-2 px-6 flex justify-between items-center text-[10px] md:text-xs uppercase tracking-[0.2em] z-[60] relative">
+        <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3 text-[var(--logo-red)]"></i> 100% Halal Mediterranean Grill</span>
+        <span class="hidden md:flex items-center gap-2 font-bold italic"><i data-lucide="phone" class="w-3 h-3 text-[var(--logo-red)]"></i> (661) 360-3026</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 px-6 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3">
+                <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" class="w-12 h-12 rounded-full border border-gray-100" alt="Sierra Grill House Logo">
+                <div class="flex flex-col">
+                    <span class="text-xl md:text-2xl font-bold heading-font leading-none uppercase tracking-tight">Sierra <span class="text-[var(--logo-red)]">Grill House</span></span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-gray-400 font-bold">Mediterranean & Greek Kitchen</span>
+                </div>
+            </a>
+            <div class="hidden lg:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+                <a href="#menu" class="hover:text-[var(--logo-red)] transition-colors">Menu</a>
+                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors">Order Online</a>
+                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors">Contact</a>
+            </div>
+            <div class="flex gap-3 items-center">
+                <a href="tel:6613603026" class="btn-red px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg rounded">
+                    <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex items-center overflow-hidden">
+        <canvas id="smoke-canvas"></canvas>
+        <div class="absolute inset-0 -z-10">
+            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" class="w-full h-full object-cover" alt="Grilled Kabob Background">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="max-w-2xl reveal active">
+                <p class="handwritten text-3xl mb-4 text-white opacity-90">Join our table in Canyon Country</p>
+                <h1 class="text-5xl md:text-8xl heading-font mb-6 leading-[1.1] text-white">Authentic Fire, <br><span class="text-[var(--logo-red)]">Family</span> Soul</h1>
+                <p class="text-xl text-gray-200 mb-10 leading-relaxed font-light">
+                    100% Halal flame-grilled flavors. Greek and Armenian recipes passed down through generations.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <a href="#menu" class="btn-red px-12 py-5 text-center font-bold uppercase tracking-widest text-xs shadow-2xl">View the Menu</a>
+                    <a href="#order" class="bg-white/10 backdrop-blur-md border-2 border-white text-white px-12 py-5 text-center font-bold hover:bg-white hover:text-black transition-all uppercase tracking-widest text-xs">Order Online</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu" class="py-32 bg-[var(--warm-bg)]">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="mb-24 reveal">
+                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Freshly Prepared</span>
+                <h2 class="text-6xl md:text-8xl heading-font mt-4 mb-6 tracking-tighter">THE MENU</h2>
+                <div class="w-24 h-1.5 bg-[var(--logo-red)] mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                <div class="menu-card reveal" onclick="openSlider(0)">
+                    <img src="https://i.imgur.com/23YXNNB.jpg" class="w-full h-auto" alt="Menu Plates">
+                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Plates</p>
+                </div>
+                <div class="menu-card reveal" style="transition-delay: 0.1s" onclick="openSlider(1)">
+                    <img src="https://i.imgur.com/Oo0yhqX.jpg" class="w-full h-auto" alt="Menu Appetizers">
+                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Sides & Drinks</p>
+                </div>
+                <div class="menu-card reveal" style="transition-delay: 0.2s" onclick="openSlider(2)">
+                    <img src="https://i.imgur.com/WVPKgPk.jpg" class="w-full h-auto" alt="Menu Wraps">
+                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Wraps & Salads</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Delivery -->
+    <section id="order" class="py-32 px-6 bg-[var(--logo-black)] text-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+            <div class="reveal">
+                <h2 class="text-4xl heading-font mb-4 italic uppercase tracking-widest">Order Now</h2>
+                <p class="text-gray-400 mb-10 text-sm">Select a delivery service below to start your order:</p>
+                
+                <!-- DELIVERY PARTNERS GRID -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
+                    <!-- DoorDash -->
+                    <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="partner-link">
+                        <img src="https://www.shutterstock.com/image-vector/kerala-india-09082023-doordash-food-600nw-2344891519.jpg" alt="DoorDash" class="partner-img">
+                    </a>
+                    <!-- Uber Eats -->
+                    <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
+                        <img src="https://img.icons8.com/color/1200/uber-eats-app.jpg" alt="Uber Eats" class="partner-img">
+                    </a>
+                    <!-- Postmates -->
+                    <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
+                        <img src="https://techcrunch.com/wp-content/uploads/2013/05/newpmlogo.png" alt="Postmates" class="partner-img">
+                    </a>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex gap-6 items-center">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--logo-red)]"><i data-lucide="map-pin"></i></div>
+                        <p class="text-lg">27540 Sierra Hwy, Canyon Country, CA 91351</p>
+                    </div>
+                    <div class="flex gap-6 items-center">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--logo-red)]"><i data-lucide="phone"></i></div>
+                        <p class="text-3xl font-bold">(661) 360-3026</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rounded-2xl overflow-hidden shadow-2xl border-[8px] border-white/10 h-[450px] reveal">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.565863261271!2d-118.4582644234509!3d34.41557099898031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2898f9ca053e3%3A0x6fbac75f251febc1!2sSierra%20Grill%20House!5e0!3m2!1sen!2sus!4v1711467400000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[100] p-4" onclick="if(event.target.id === 'lightbox') closeSlider()">
+        <button onclick="closeSlider()" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <div class="flex items-center justify-between w-full max-w-5xl">
+            <button onclick="changeSlide(-1)" class="p-4 text-white hover:text-[var(--logo-red)]"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+            <img id="slider-img" src="" class="max-h-[85vh] max-w-full rounded shadow-2xl transition-opacity duration-300">
+            <button onclick="changeSlide(1)" class="p-4 text-white hover:text-[var(--logo-red)]"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Reveal on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Smoke Animation
+        const canvas = document.getElementById('smoke-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Particle {
+            constructor() { this.reset(); this.y = Math.random() * canvas.height; }
+            reset() { this.x = Math.random() * canvas.width; this.y = canvas.height + 50; this.size = Math.random() * 80 + 40; this.speedY = Math.random() * 0.5 + 0.2; this.opacity = Math.random() * 0.2; }
+            update() { this.y -= this.speedY; if (this.y < -100) this.reset(); }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(200, 200, 200, ${this.opacity})`; ctx.fill(); }
+        }
+        function init() { particles = Array.from({length: 20}, () => new Particle()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        init(); animate();
+
+        // Slider Logic
+        const menuImages = ["https://i.imgur.com/23YXNNB.jpg", "https://i.imgur.com/Oo0yhqX.jpg", "https://i.imgur.com/WVPKgPk.jpg"];
+        let currentSlide = 0;
+        function openSlider(index) { currentSlide = index; updateSlider(); document.getElementById('lightbox').classList.replace('hidden', 'flex'); document.body.style.overflow = 'hidden'; }
+        function closeSlider() { document.getElementById('lightbox').classList.replace('flex', 'hidden'); document.body.style.overflow = 'auto'; }
+        function changeSlide(dir) { currentSlide = (currentSlide + dir + menuImages.length) % menuImages.length; updateSlider(); }
+        function updateSlider() { const img = document.getElementById('slider-img'); img.style.opacity = '0'; setTimeout(() => { img.src = menuImages[currentSlide]; img.style.opacity = '1'; }, 150); }
+    </script>
+</body>
+</html>
