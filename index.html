@@ -8,33 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,500;1,400&family=Handlee&display=swap" rel="stylesheet">
 
   <style>
-    /* ── RESET ── */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ── RESET & TOKENS ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; -webkit-tap-highlight-color: transparent; }
 
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      font-family: inherit;
-      border: none;
-      background: none;
-    }
-
-    /* ── TOKENS ── */
     :root {
       --red: #e31837;
       --red-dk: #b5102a;
@@ -44,9 +23,9 @@
       --gray1: #f3f4f6;
       --gray4: #9ca3af;
       --gray6: #4b5563;
+      --greek-blue: #005bae;
     }
 
-    /* ── BASE ── */
     body {
       font-family: 'Lora', serif;
       background: var(--white);
@@ -56,60 +35,55 @@
       background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
     }
 
-    h1,
-    h2,
-    h3 {
-      font-family: 'Cinzel', serif;
-      letter-spacing: 1px;
-    }
+    h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 1px; }
 
-    .handwritten {
-      font-family: 'Handlee', cursive;
-      color: var(--red);
+    /* ── GREEK BAR ── */
+    #greek-bar {
+      background: var(--greek-blue);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      z-index: 70;
     }
-
-    /* ── ICONS ── */
-    .icon {
-      display: inline-block;
-      vertical-align: middle;
-      flex-shrink: 0;
+    .flag-icon { width: 22px; animation: wave 3s ease-in-out infinite; }
+    @keyframes wave {
+      0%, 100% { transform: rotate(0) translateY(0); }
+      50% { transform: rotate(5deg) translateY(-2px); }
     }
 
     /* ── TOP BAR ── */
     #topbar {
       background: var(--black);
       color: var(--white);
-      padding: .5rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: .6rem 1.5rem;
       font-size: .65rem;
       text-transform: uppercase;
-      letter-spacing: .2em;
-      position: relative;
+      letter-spacing: .15em;
       z-index: 60;
-      gap: 1rem;
     }
-
-    #topbar .left,
-    #topbar .right {
-      display: flex;
-      align-items: center;
-      gap: .4rem;
+    .topbar-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .topbar-right { display: flex; align-items: center; gap: 20px; }
+    
+    /* Normal Instagram Button Styling */
+    .insta-link { 
+      display: flex; 
+      align-items: center; 
+      color: white; 
+      transition: all 0.3s ease; 
+      opacity: 0.9;
     }
-
-    #topbar a {
-      font-weight: 700;
-      font-style: italic;
-      transition: color .3s;
-    }
-
-    #topbar a:hover {
-      color: var(--red);
-    }
-
-    #topbar svg {
-      color: var(--red);
+    .insta-link:hover { 
+      color: var(--red); 
+      transform: translateY(-2px); 
+      opacity: 1; 
     }
 
     /* ── NAV ── */
@@ -118,76 +92,18 @@
       top: 0;
       z-index: 50;
       background: rgba(255, 255, 255, .96);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border-bottom: 1px solid #e5e7eb;
       padding: .75rem 1.5rem;
     }
-
-    .nav-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-
-    .nav-logo img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-
-    .nav-logo-text {
-      font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1;
-    }
-
-    .nav-logo-text span {
-      color: var(--red);
-    }
-
-    .nav-links {
-      display: none;
-      gap: 2rem;
-      font-size: .68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .2em;
-    }
-
-    .nav-links a {
-      transition: color .3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--red);
-    }
-
-    .nav-links a.hl {
-      color: var(--red);
-    }
-
-    .nav-ctas {
-      display: flex;
-      gap: .5rem;
-      align-items: center;
-    }
-
-    @media(min-width:1024px) {
-      .nav-links {
-        display: flex;
-      }
-    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: .75rem; }
+    .nav-logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+    .nav-logo-text { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
+    .nav-logo-text span { color: var(--red); }
+    .nav-links { display: none; gap: 2rem; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; }
+    @media(min-width: 1024px) { .nav-links { display: flex; } }
 
     /* ── BUTTONS ── */
     .btn {
@@ -195,890 +111,162 @@
       align-items: center;
       justify-content: center;
       gap: .5rem;
-      font-family: 'Lora', serif;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .18em;
+      letter-spacing: .15em;
       font-size: .7rem;
       border-radius: .375rem;
-      padding: .9rem 2rem;
-      cursor: pointer;
-      transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
+      padding: .9rem 1.8rem;
+      transition: 0.3s ease;
       white-space: nowrap;
-      border: 2px solid transparent;
-      text-decoration: none;
     }
-
-    .btn-red {
-      background: var(--red);
-      color: var(--white);
-      border-color: var(--red);
-    }
-
-    .btn-red::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, .15);
-      transform: translateX(-110%);
-      transition: transform .4s ease;
-    }
-
-    .btn-red:hover::after {
-      transform: translateX(0);
-    }
-
-    .btn-red:hover {
-      background: var(--red-dk);
-      border-color: var(--red-dk);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 30px -8px rgba(227, 24, 55, .6);
-    }
-
-    .btn-ghost {
-      background: rgba(255, 255, 255, .08);
-      border-color: var(--white);
-      color: var(--white);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-ghost::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--white);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .35s ease;
-      z-index: 0;
-    }
-
-    .btn-ghost>* {
-      position: relative;
-      z-index: 1;
-      transition: color .35s ease;
-    }
-
-    .btn-ghost:hover::after {
-      transform: scaleX(1);
-    }
-
-    .btn-ghost:hover>* {
-      color: var(--black);
-    }
-
-    .btn-ghost:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 30px -8px rgba(255, 255, 255, .25);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .btn-outline:hover {
-      background: var(--red);
-      color: var(--white);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px -6px rgba(227, 24, 55, .5);
-    }
-
-    .btn-sm {
-      padding: .6rem 1.2rem;
-      font-size: .65rem;
-    }
-
-    .pulse-ring {
-      position: relative;
-    }
-
-    .pulse-ring::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: inherit;
-      border: 2px solid var(--red);
-      opacity: 0;
-      animation: pulseOut 2s ease-out infinite;
-    }
-
-    @keyframes pulseOut {
-      0% {
-        transform: scale(1);
-        opacity: .7
-      }
-
-      100% {
-        transform: scale(1.18);
-        opacity: 0
-      }
-    }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-red:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(227, 24, 55, 0.3); }
+    .btn-ghost { border: 1px solid var(--white); color: var(--white); backdrop-filter: blur(5px); }
+    .btn-outline { border: 2px solid var(--red); color: var(--red); }
 
     /* ── HERO ── */
     #hero {
       position: relative;
-      min-height: 88vh;
+      min-height: 80vh;
       display: flex;
       align-items: center;
       overflow: hidden;
+      background: #000;
     }
+    #hero-bg { position: absolute; inset: 0; z-index: 1; }
+    #hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.85), transparent); z-index: 2; }
+    #smoke-canvas { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.35; }
+    .hero-content { position: relative; z-index: 4; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; color: white; width: 100%; }
+    .hero-h1 { font-size: clamp(2.5rem, 9vw, 5.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero-h1 span { color: var(--red); }
+    .hero-p { font-size: 1.1rem; color: #ddd; margin-bottom: 2.5rem; max-width: 600px; }
 
-    #hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-    }
-
-    #hero-bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0, 0, 0, .88) 0%, rgba(0, 0, 0, .5) 55%, rgba(0, 0, 0, .2) 100%);
-    }
-
-    @media(max-width:768px) {
-      .hero-overlay {
-        background: rgba(0, 0, 0, .62);
-      }
-    }
-
-    #smoke-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: .3;
-      z-index: 2;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    @media(min-width:768px) {
-      .hero-content {
-        text-align: left;
-      }
-    }
-
-    .hero-inner {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    @media(min-width:768px) {
-      .hero-inner {
-        margin: 0;
-      }
-    }
-
-    .hero-tagline {
-      font-family: 'Handlee', cursive;
-      color: rgba(255, 255, 255, .9);
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      line-height: 1.1;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-h1 span {
-      color: var(--red);
-    }
-
-    .hero-p {
-      font-size: 1.1rem;
-      color: #e5e7eb;
-      margin-bottom: 2.5rem;
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    .hero-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    @media(min-width:768px) {
-      .hero-btns {
-        justify-content: flex-start;
-      }
-    }
-
-    /* ── SECTION BASE ── */
-    section {
-      padding: 5rem 1.5rem;
-    }
-
-    @media(min-width:768px) {
-      section {
-        padding: 7rem 1.5rem;
-      }
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    .section-tag {
-      color: var(--red);
-      font-weight: 700;
-      font-size: .65rem;
-      text-transform: uppercase;
-      letter-spacing: .4em;
-      display: block;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      margin-top: .75rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .divider {
-      width: 6rem;
-      height: 6px;
-      background: var(--red);
-      border-radius: 9999px;
-      margin: .5rem auto 0;
-    }
+    /* ── SECTIONS ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-tag { color: var(--red); font-weight: 700; font-size: .65rem; text-transform: uppercase; letter-spacing: .4em; text-align: center; display: block; }
+    .section-title { font-family: 'Cinzel', serif; text-align: center; margin-top: .5rem; margin-bottom: 1rem; }
+    .divider { width: 4rem; height: 5px; background: var(--red); margin: 0 auto 3rem; border-radius: 10px; }
 
     /* ── MENU ── */
-    #menu {
-      background: var(--warm);
-    }
+    #menu { background: var(--warm); }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+    .menu-card { background: var(--white); border: 8px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.08); cursor: pointer; transition: 0.4s; }
+    .menu-card:hover { transform: translateY(-10px); border-color: var(--red); }
+    .card-label { font-family: 'Cinzel', serif; text-align: center; padding: 1.5rem; font-weight: 700; text-transform: uppercase; }
 
-    .menu-header {
-      text-align: center;
-      margin-bottom: 4rem;
+    /* ── STORY (ROOTS PHOTO) ── */
+    #story { background: var(--warm); }
+    .story-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
+    @media(min-width: 900px) { .story-grid { grid-template-columns: 1fr 1fr; } }
+    .story-polaroid { 
+      background: var(--white); padding: 1rem; box-shadow: 0 25px 50px rgba(0,0,0,0.12); 
+      transform: rotate(-1.5deg); width: 100%; max-width: 450px; margin: 0 auto;
     }
+    .story-polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #eee; }
+    .story-quote { background: var(--white); padding: 2rem; border-left: 6px solid var(--red); font-style: italic; margin: 2rem 0; box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
 
-    .menu-title {
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      letter-spacing: -.02em;
-    }
+    /* ── ORDER / MAP ── */
+    #order-section { background: var(--black); color: var(--white); }
+    .order-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+    @media(min-width: 900px) { .order-grid { grid-template-columns: 1fr 1fr; } }
+    .map-wrap { border-radius: 1.5rem; overflow: hidden; height: 380px; border: 4px solid #222; margin-bottom: 1rem; }
+    .disclaimer-text { color: var(--gray4); font-size: 0.85rem; font-style: italic; line-height: 1.6; }
 
-    .menu-hint {
-      color: var(--gray4);
-      font-size: .8rem;
-      margin-top: .75rem;
+    /* ── DELIVERY ICON LINKS ── */
+    .delivery-icon-row { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; margin-top: 1.5rem; }
+    .delivery-icon-link { 
+      width: 45px; height: 45px; overflow: hidden; border-radius: 10px; 
+      border: 2px solid transparent; transition: 0.3s; background: white;
     }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    @media(min-width:768px) {
-      .menu-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .menu-card {
-      background: var(--white);
-      border: 8px solid var(--white);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
-      cursor: pointer;
-      transition: all .6s cubic-bezier(0.23, 1, 0.32, 1);
-      max-width: 400px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .menu-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .menu-card:hover {
-      transform: translateY(-14px);
-      border-color: var(--red);
-      box-shadow: 0 30px 60px -10px rgba(227, 24, 55, .25);
-    }
-
-    .menu-card:hover .card-label {
-      color: var(--red);
-    }
-
-    .card-label {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: .95rem;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      text-align: center;
-      padding: 1.4rem 1rem;
-      transition: color .4s ease;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    /* ── REVIEWS ── */
-    #reviews {
-      background: var(--white);
-      border-top: 1px solid var(--gray1);
-      border-bottom: 1px solid var(--gray1);
-    }
-
-    .reviews-head {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media(min-width:768px) {
-      .reviews-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .review-card {
-      background: var(--warm);
-      padding: 2.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
-    }
-
-    .stars {
-      display: flex;
-      justify-content: center;
-      gap: .25rem;
-      color: #f59e0b;
-      margin-bottom: 1.25rem;
-    }
-
-    .review-text {
-      font-style: italic;
-      color: var(--gray6);
-      font-size: .875rem;
-      text-align: center;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .review-author {
-      font-weight: 700;
-      font-size: .65rem;
-      text-transform: uppercase;
-      letter-spacing: .2em;
-      color: var(--red);
-      text-align: center;
-    }
-
-    /* ── STORY ── */
-    #story {
-      background: var(--warm);
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 4rem;
-      align-items: center;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    @media(min-width:768px) {
-      .story-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .story-photo-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .story-polaroid {
-      background: var(--white);
-      padding: 1.25rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
-      border: 1px solid #e5e7eb;
-      max-width: 380px;
-      width: 100%;
-    }
-
-    @media(min-width:768px) {
-      .story-polaroid {
-        transform: rotate(2deg);
-      }
-    }
-
-    .story-polaroid img {
-      border-radius: 2px;
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
-    }
-
-    @media(min-width:768px) {
-      .story-polaroid img {
-        height: 400px;
-      }
-    }
-
-    .story-caption {
-      font-family: 'Handlee', cursive;
-      color: var(--red);
-      font-size: 1.4rem;
-      text-align: center;
-      margin-top: .75rem;
-    }
-
-    .story-text {
-      text-align: center;
-    }
-
-    @media(min-width:768px) {
-      .story-text {
-        text-align: left;
-      }
-    }
-
-    .story-h2 {
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      line-height: 1.2;
-    }
-
-    .story-p {
-      color: var(--gray6);
-      line-height: 1.75;
-      font-size: 1.05rem;
-      font-weight: 300;
-      margin: 1.25rem 0 1.75rem;
-    }
-
-    .story-quote {
-      background: var(--white);
-      padding: 1.75rem 2rem;
-      border-left: 6px solid var(--red);
-      font-style: italic;
-      color: #57534e;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
-      border-radius: 0 .5rem .5rem 0;
-      display: inline-block;
-      max-width: 420px;
-      text-align: left;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .story-quote-author {
-      display: block;
-      margin-top: .75rem;
-      font-weight: 700;
-      font-style: normal;
-      color: var(--black);
-    }
-
-    .story-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    @media(min-width:768px) {
-      .story-btns {
-        justify-content: flex-start;
-      }
-    }
-
-    /* ── ORDER ── */
-    #order {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    .order-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 4rem;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    @media(min-width:768px) {
-      .order-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .order-left {
-      text-align: center;
-    }
-
-    @media(min-width:768px) {
-      .order-left {
-        text-align: left;
-      }
-    }
-
-    .order-h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-style: italic;
-      text-transform: uppercase;
-      letter-spacing: .2em;
-      margin-bottom: .75rem;
-    }
-
-    .order-sub {
-      color: var(--gray4);
-      font-size: .8rem;
-      margin-bottom: 2rem;
-    }
-
-    .partners {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    @media(min-width:768px) {
-      .partners {
-        align-items: flex-start;
-      }
-    }
-
-    .partner-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--white);
-      padding: .6rem;
-      border-radius: .75rem;
-      height: 56px;
-      width: 100%;
-      max-width: 240px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
-      transition: all .3s ease;
-    }
-
-    .partner-link:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, .35);
-    }
-
-    .partner-link img {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    @media(min-width:768px) {
-      .contact-list {
-        align-items: flex-start;
-      }
-    }
-
-    .contact-row {
-      display: flex;
-      align-items: center;
-      gap: .85rem;
-      color: var(--white);
-      transition: color .3s;
-    }
-
-    .contact-row:hover {
-      color: var(--red);
-    }
-
-    .contact-row svg {
-      color: var(--red);
-      flex-shrink: 0;
-    }
-
-    .phone-num {
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-
-    .order-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    @media(min-width:768px) {
-      .order-ctas {
-        justify-content: flex-start;
-      }
-    }
-
-    .map-wrap {
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, .45);
-      border: 8px solid rgba(255, 255, 255, .08);
-      height: 300px;
-    }
-
-    @media(min-width:768px) {
-      .map-wrap {
-        height: 430px;
-      }
-    }
-
-    .map-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--white);
-      text-align: center;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--gray1);
-    }
-
-    .footer-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-
-    .footer-copy {
-      font-size: .6rem;
-      color: var(--gray4);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-    }
+    .delivery-icon-link:hover { border-color: var(--red); transform: translateY(-3px); }
+    .delivery-icon-link img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ── LIGHTBOX ── */
     #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .97);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 1000;
+      align-items: center; justify-content: center;
     }
+    #lightbox.open { display: flex; }
+    #slider-img { max-height: 85vh; max-width: 90vw; object-fit: contain; }
+    .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); color: white; background: var(--red); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    #lb-prev { left: 15px; } #lb-next { right: 15px; }
+    #lb-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 3rem; }
 
-    #lightbox.open {
-      display: flex;
-      animation: lbIn .3s ease;
+    /* ── DELIVERY MODAL ── */
+    #order-modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); 
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 2000; align-items: center; justify-content: center; padding: 20px;
     }
-
-    @keyframes lbIn {
-      from {
-        opacity: 0
-      }
-
-      to {
-        opacity: 1
-      }
+    #order-modal.open { display: flex; }
+    .modal-card {
+      background: white; width: 100%; max-width: 400px; border-radius: 2rem; 
+      padding: 2.5rem 1.5rem; position: relative; text-align: center;
+      animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
-    #slider-img {
-      max-height: 82vh;
-      max-width: 88%;
-      width: auto;
-      margin: auto;
-      display: block;
-      border-radius: 6px;
-      object-fit: contain;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .8);
-      transition: opacity .25s ease, transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    @keyframes modalSlideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; cursor: pointer; color: #ccc; line-height: 1; }
+    .service-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.5rem; border: 2px solid #f0f0f0; border-radius: 1.2rem;
+      margin-top: 1rem; transition: 0.3s ease;
     }
+    .service-item:hover { border-color: var(--red); transform: translateY(-3px); }
+    .service-item .icon-wrapper { width: 40px; height: 40px; background: #f8f8f8; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
+    .service-item img { width: 100%; height: 100%; object-fit: cover; }
+    .service-item span { font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; color: #000; }
 
-    #slider-img.out {
-      opacity: 0;
-      transform: scale(.93);
+    /* ── YELP FLEX BADGE ── */
+    #yelp-flex {
+      position: fixed; bottom: 20px; right: 20px; z-index: 100;
+      background: var(--white); padding: 8px 15px; border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px;
+      border: 1px solid #eee; transition: 0.4s;
+      animation: flexIn 1s ease 2s both;
     }
-
-    #slider-img.in {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    #lb-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      background: rgba(255, 255, 255, .1);
-      border: 1px solid rgba(255, 255, 255, .2);
-      color: var(--white);
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 110;
-      transition: all .3s ease;
-    }
-
-    #lb-close:hover {
-      background: var(--red);
-      border-color: var(--red);
-      transform: rotate(90deg) scale(1.1);
-    }
-
-    .lb-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(227, 24, 55, .9);
-      color: var(--white);
-      border-radius: 50%;
-      width: 52px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 110;
-      transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
-    }
-
-    .lb-arrow:hover {
-      background: var(--red);
-      transform: translateY(-50%) scale(1.15);
-      box-shadow: 0 12px 30px rgba(227, 24, 55, .5);
-    }
-
-    #lb-prev {
-      left: 14px;
-    }
-
-    #lb-next {
-      right: 14px;
-    }
-
-    @media(min-width:768px) {
-      #lb-prev {
-        left: 32px;
-      }
-
-      #lb-next {
-        right: 32px;
-      }
-    }
-
-    #lb-dots {
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 110;
-    }
-
-    .lb-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, .28);
-      cursor: pointer;
-      transition: all .3s ease;
-      border: none;
-    }
-
-    .lb-dot.on {
-      background: var(--red);
-      transform: scale(1.35);
-    }
+    @keyframes flexIn { from { transform: translateX(150%); } to { transform: translateX(0); } }
+    #yelp-flex:hover { transform: translateY(-5px) scale(1.05); }
+    .yelp-stars { color: #f59e0b; font-weight: 900; font-size: 0.85rem; }
+    .yelp-badge-img { height: 22px; width: 22px; object-fit: cover; border-radius: 4px; }
 
     /* ── REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: all .8s ease-out;
-    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .d1 {
-      transition-delay: .12s;
-    }
-
-    .d2 {
-      transition-delay: .24s;
-    }
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 4rem 1.5rem; background: var(--white); border-top: 1px solid var(--gray1); }
   </style>
 </head>
 
 <body>
 
+  <!-- ══ GREEK BAR ══ -->
+  <div id="greek-bar">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg" alt="Greece" class="flag-icon">
+    Proudly Greek Owned & Operated
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg" alt="Greece" class="flag-icon">
+  </div>
+
+  <!-- ══ YELP FLEX BADGE ══ -->
+  <a href="https://www.yelp.com/biz/sierra-grill-house-santa-clarita" target="_blank" id="yelp-flex">
+    <img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/yelp.jpg" alt="Yelp" class="yelp-badge-img">
+    <div class="yelp-stars">★★★★★</div>
+    <span style="font-size:0.65rem; font-weight:800; text-transform:uppercase; color:#d32323;">Top Rated</span>
+  </a>
+
   <!-- ══ TOP BAR ══ -->
   <div id="topbar">
-    <div class="left">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-      100% Halal Mediterranean Grill
-    </div>
-    <div class="right">
-      <a href="tel:6613603026">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-        </svg>
-        (661) 360-3026
-      </a>
+    <div class="topbar-inner">
+      <div class="topbar-left">100% Halal Mediterranean Grill</div>
+      <div class="topbar-right">
+        <a href="https://www.instagram.com/sierragrillhouse/" target="_blank" class="insta-link">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="margin-right:5px;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </a>
+        <a href="tel:6613603026" style="font-weight:700;">(661) 360-3026</a>
+      </div>
     </div>
   </div>
 
@@ -1086,30 +274,16 @@
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" alt="Sierra Grill House logo">
+        <img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/SGHlogo.png" alt="Sierra Logo">
         <div class="nav-logo-text">Sierra <span>Grill House</span></div>
       </a>
       <div class="nav-links">
         <a href="#menu">Menu</a>
         <a href="#story">Our Story</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#order" class="hl">Order Online</a>
+        <button class="btn-order-trigger" style="font-weight:700; color:var(--red); cursor:pointer;">Order Online</button>
       </div>
       <div class="nav-ctas">
-        <a href="#order" class="btn btn-red btn-sm" id="nav-order" style="display:none;">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 01-8 0" />
-          </svg>
-          Order Now
-        </a>
-        <a href="tel:6613603026" class="btn btn-red btn-sm pulse-ring">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-          </svg>
-          Call
-        </a>
+        <button class="btn btn-red btn-sm btn-order-trigger">Order Now</button>
       </div>
     </div>
   </nav>
@@ -1117,451 +291,141 @@
   <!-- ══ HERO ══ -->
   <section id="hero">
     <canvas id="smoke-canvas"></canvas>
-    <div id="hero-bg">
-      <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" alt="Grill">
-      <div class="hero-overlay"></div>
-    </div>
+    <div id="hero-bg"><img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" alt="Grill"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-inner reveal active">
-        <p class="hero-tagline">Join our table in Canyon Country</p>
+      <div class="reveal active">
         <h1 class="hero-h1">Authentic Fire,<br><span>Family</span> Soul</h1>
-        <p class="hero-p">100% Halal flame-grilled flavors. Greek and Armenian recipes passed down through generations.</p>
+        <p class="hero-p">Experience 100% Halal Mediterranean flavors in Canyon Country. Greek and Armenian recipes made fresh daily.</p>
         <div class="hero-btns">
-          <a href="#menu" class="btn btn-red">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-            </svg>
-            View Full Menu
-          </a>
-          <a href="#order" class="btn btn-red">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 01-8 0" />
-            </svg>
-            Order Now
-          </a>
-          <a href="tel:6613603026" class="btn btn-ghost">
-            <svg class="icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-            <span>Call to Order</span>
-          </a>
+          <a href="#menu" class="btn btn-red">View Menu</a>
+          <button class="btn btn-ghost btn-order-trigger">Order Delivery</button>
         </div>
       </div>
     </div>
   </section>
 
- <!-- ══ MENU ══ -->
-
-<section id="menu" style="background:var(--warm);">
-<div class="container">
-<div class="menu-header reveal">
-<span class="section-tag">Freshly Prepared</span>
-<h2 class="section-title menu-title">The Menu</h2>
-<div class="divider"></div>
-<p class="menu-hint">Click any section to enlarge</p>
-</div>
-<div class="menu-grid">
-<div class="menu-card reveal" onclick="openSlider(0)">
-<!-- Updated to menu1.jpeg -->
-<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg" alt="Plates menu" loading="lazy">
-<div class="card-label">Plates</div>
-</div>
-<div class="menu-card reveal d1" onclick="openSlider(1)">
-<!-- Updated to menu2.jpeg -->
-<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg" alt="Appetizers and Drinks menu" loading="lazy">
-<div class="card-label">Appetizers &amp; Drinks</div>
-</div>
-<div class="menu-card reveal d2" onclick="openSlider(2)">
-<!-- Updated to menu3.jpeg -->
-<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg" alt="Wraps and Salads menu" loading="lazy">
-<div class="card-label">Wraps &amp; Salads</div>
-</div>
-</div>
-<div class="cta-row reveal">
-<a href="#order" class="btn btn-red">
-<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-<line x1="3" y1="6" x2="21" y2="6" />
-<path d="M16 10a4 4 0 01-8 0" />
-</svg>
-Order Now
-</a>
-<a href="tel:6613603026" class="btn btn-outline">
-<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-</svg>
-Call to Order
-</a>
-</div>
-</div>
-</section>
-  <!-- ══ REVIEWS ══ -->
-  <section id="reviews">
+  <!-- ══ MENU ══ -->
+  <section id="menu">
     <div class="container">
-      <div class="reviews-head reveal">
-        <span class="section-tag">Kind Words</span>
-        <h2 class="section-title" style="font-size:2rem;font-style:italic;">Neighbor Reviews</h2>
-      </div>
-      <div class="reviews-grid">
-        <!-- Review 1 -->
-        <div class="review-card reveal">
-          <div class="stars">
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-          </div>
-          <p class="review-text">"The filet mignon plate was so tender. The Greek salad was exactly like the original in Greece!"</p>
-          <p class="review-author">— Yelp Review</p>
-        </div>
-        <!-- Review 2 -->
-        <div class="review-card reveal d1">
-          <div class="stars">
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-          </div>
-          <p class="review-text">"Hidden gem for sure. The staff are wonderful, and the place is spotless. 10/10."</p>
-          <p class="review-author">— Tina O.</p>
-        </div>
-        <!-- Review 3 -->
-        <div class="review-card reveal d2">
-          <div class="stars">
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-          </div>
-          <p class="review-text">"Excellent service. The lamb chops are excellent! Decorated simply and nicely."</p>
-          <p class="review-author">— Cher H.</p>
-        </div>
+      <span class="section-tag">Freshly Prepared</span>
+      <h2 class="section-title">The Menu</h2>
+      <div class="divider"></div>
+      <div class="menu-grid">
+        <div class="menu-card reveal" onclick="openSlider(0)"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg" alt="Plates"><div class="card-label">Plates</div></div>
+        <div class="menu-card reveal" onclick="openSlider(1)"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg" alt="Appetizers"><div class="card-label">Appetizers & Drinks</div></div>
+        <div class="menu-card reveal" onclick="openSlider(2)"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg" alt="Wraps"><div class="card-label">Wraps & Salads</div></div>
       </div>
     </div>
   </section>
 
   <!-- ══ STORY ══ -->
   <section id="story">
-    <div class="story-grid">
-      <div class="story-photo-wrap reveal">
-        <div class="story-polaroid">
-          <img src="https://s3-media0.fl.yelpcdn.com/bphoto/1Lz_JyZBbQ4MVed-_RR3cw/o.jpg" alt="Restaurant exterior">
-          <p class="story-caption">Cooking with heart</p>
+    <div class="container">
+      <div class="story-grid">
+        <div class="reveal">
+          <div class="story-polaroid">
+            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/1Lz_JyZBbQ4MVed-_RR3cw/o.jpg" alt="Our Roots">
+            <p style="font-family:'Handlee'; color:var(--red); text-align:center; margin-top:1rem; font-size:1.4rem;">Cooking with Heart</p>
+          </div>
         </div>
-      </div>
-      <div class="story-text reveal d1">
-        <span class="section-tag">Our Roots</span>
-        <h2 class="story-h2 section-title">Mediterranean Soul<br>&amp; 100% Halal</h2>
-        <p class="story-p">Sierra Grill House was built on generations of culinary traditions. We blend old-world recipes from Greece and Armenia with fresh, quality ingredients.</p>
-        <div class="story-quote">
-          "It makes our family happy when our customers enjoy their time and food."
-          <span class="story-quote-author">— Alexandros B., Owner</span>
-        </div>
-        <div class="story-btns">
-          <a href="#menu" class="btn btn-red">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-            </svg>
-            View Full Menu
-          </a>
-          <a href="tel:6613603026" class="btn btn-outline">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-            Call to Order
-          </a>
+        <div class="reveal">
+          <span class="section-tag" style="text-align:left;">Our Roots</span>
+          <h2 class="section-title" style="text-align:left;">Mediterranean Soul</h2>
+          <p style="line-height:1.8; color:var(--gray6);">Sierra Grill House was built on generations of traditions. We blend old-world recipes from Greece and Armenia with fresh, high-quality ingredients.</p>
+          <div class="story-quote">"It makes our family happy when our customers enjoy their time and food."<br><span style="font-weight:700; font-style:normal; display:block; margin-top:10px;">— Alexandros B., Owner</span></div>
+          <button class="btn btn-red btn-order-trigger">Order Now</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ ORDER ══ -->
-  <section id="order">
-    <div class="order-grid">
-      <div class="order-left reveal">
-        <h2 class="order-h2">Order Now</h2>
-        <p class="order-sub">Delivery via our partners:</p>
-        <div class="partners">
-          <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" rel="noopener noreferrer" class="partner-link">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/DoorDash_Logo.svg/2560px-DoorDash_Logo.svg.png" alt="DoorDash">
-          </a>
-          <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" rel="noopener noreferrer" class="partner-link">
-            <img src="https://img.icons8.com/color/1200/uber-eats-app.jpg" alt="Uber Eats">
-          </a>
-          <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" rel="noopener noreferrer" class="partner-link">
-            <img src="https://techcrunch.com/wp-content/uploads/2013/05/newpmlogo.png" alt="Postmates">
-          </a>
+  <!-- ══ ORDER SECTION (MAP FOCUS) ══ -->
+  <section id="order-section">
+    <div class="container">
+      <div class="order-grid">
+        <div class="reveal">
+          <h2 style="font-family:'Cinzel'; margin-bottom:1.5rem;">Visit Us</h2>
+          <p class="disclaimer-text" style="text-align:left; color:white; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            Sierra Grill House is proudly located at the former home of <strong>Mad Tuna Sushi and Bento</strong>.
+          </p>
+          <div style="margin-bottom:2.5rem; display:flex; flex-wrap:wrap; gap:1rem;">
+            <a href="https://www.google.com/maps/place/Sierra+Grill+House/@34.4156355,-118.4556959,16z/data=!4m15!1m8!3m7!1s0x80c2898f9ca053e3:0x6fbac75f251febc1!2sSierra+Grill+House!8m2!3d34.4155666!4d-118.4556895!10e9!16s%2Fg%2F11x5jx40qm!3m5!1s0x80c2898f9ca053e3:0x6fbac75f251febc1!8m2!3d34.4155666!4d-118.4556895!16s%2Fg%2F11x5jx40qm" target="_blank" class="btn btn-red btn-sm">Get Directions</a>
+            <a href="tel:6613603026" class="btn btn-outline btn-sm" style="color:white; border-color:white;">(661) 360-3026</a>
+          </div>
+          <p style="margin-bottom:1rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Order Delivery:</p>
+          <div class="delivery-icon-row">
+            <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="delivery-icon-link"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/DD.jpg" alt="DoorDash"></a>
+            <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="delivery-icon-link"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/UE.jpg" alt="Uber Eats"></a>
+            <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="delivery-icon-link"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/PM.jpg" alt="Postmates"></a>
+          </div>
         </div>
-        <div class="contact-list">
-          <a href="https://maps.google.com/?q=27540+Sierra+Hwy+Canyon+Country+CA+91351" target="_blank" class="contact-row">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span>27540 Sierra Hwy, Canyon Country, CA 91351</span>
-          </a>
-          <a href="tel:6613603026" class="contact-row">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-            <span class="phone-num">(661) 360-3026</span>
-          </a>
+        <div class="reveal">
+          <div class="map-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.688569850403!2d-118.4556895!3d34.4155666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2898f9ca053e3%3A0x6fbac75f251febc1!2sSierra%20Grill%20House!5e0!3m2!1sen!2sus!4v1711776000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
         </div>
-        <div class="order-ctas">
-          <a href="tel:6613603026" class="btn btn-red pulse-ring">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-            Call to Order
-          </a>
-          <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="btn btn-ghost">
-            <svg class="icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <rect x="1" y="3" width="15" height="13" />
-              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-              <circle cx="5.5" cy="18.5" r="2.5" />
-              <circle cx="18.5" cy="18.5" r="2.5" />
-            </svg>
-            <span>Get Delivery</span>
-          </a>
-        </div>
-      </div>
-      <div class="map-wrap reveal d1">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.758362635467!2d-118.4682442!3d34.4328574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28f090d800001%3A0x6d705c8628b0f43!2s27540%20Sierra%20Hwy%2C%20Canyon%20Country%2C%20CA%2091351!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen loading="lazy" title="Sierra Grill House location"></iframe>
       </div>
     </div>
   </section>
 
   <!-- ══ FOOTER ══ -->
   <footer>
-    <div class="footer-btns">
-      <a href="tel:6613603026" class="btn btn-red btn-sm">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-        </svg>
-        (661) 360-3026
-      </a>
-      <a href="#order" class="btn btn-outline btn-sm">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 01-8 0" />
-        </svg>
-        Order Online
+    <div style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 20px;">
+      <a href="https://www.instagram.com/sierragrillhouse/" target="_blank" class="insta-link" style="color:var(--black);">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
     </div>
-    <p class="footer-copy">© 2026 Sierra Grill House &nbsp;·&nbsp; 27540 Sierra Hwy, Canyon Country, CA 91351 &nbsp;·&nbsp; 100% Halal Mediterranean Soul</p>
+    <p>© 2026 Sierra Grill House | Canyon Country | 100% Halal | Greek Owned</p>
+    <p class="disclaimer-text" style="margin-top: 10px;">We are located at the former site of Mad Tuna Sushi and Bento.</p>
   </footer>
 
-  <!-- ══ LIGHTBOX ══ -->
-  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Menu viewer" onclick="if(event.target===this)closeSlider()">
-    <button id="lb-close" onclick="closeSlider()" aria-label="Close">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
-      </svg>
-    </button>
-    <button id="lb-prev" class="lb-arrow" onclick="changeSlide(-1)" aria-label="Previous">
-      <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <polyline points="15 18 9 12 15 6" />
-      </svg>
-    </button>
-    <img id="slider-img" src="" alt="Menu page" class="out">
-    <button id="lb-next" class="lb-arrow" onclick="changeSlide(1)" aria-label="Next">
-      <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
-    </button>
-    <div id="lb-dots" role="tablist"></div>
+  <!-- ══ MODALS ══ -->
+  <div id="lightbox" onclick="if(event.target===this)closeSlider()">
+    <button id="lb-close" onclick="closeSlider()">&times;</button>
+    <button id="lb-prev" class="lb-arrow" onclick="changeSlide(-1)">&#10094;</button>
+    <img id="slider-img" src="" alt="Menu Viewer">
+    <button id="lb-next" class="lb-arrow" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+
+  <div id="order-modal" onclick="if(event.target===this)closeOrderModal()">
+    <div class="modal-card">
+      <div class="modal-close" onclick="closeOrderModal()">&times;</div>
+      <h3 style="font-family:'Cinzel'; margin-bottom:0.5rem;">Select Service</h3>
+      <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">Choose your delivery partner:</p>
+      <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="service-item"><span>DoorDash</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/DD.jpg" alt="DoorDash"></div></a>
+      <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="service-item"><span>Uber Eats</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/UE.jpg" alt="Uber Eats"></div></a>
+      <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="service-item"><span>Postmates</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/PM.jpg" alt="Postmates"></div></a>
+    </div>
   </div>
 
   <script>
-    /* ── Nav Order button show/hide ── */
-    (function() {
-      const navOrderBtn = document.getElementById('nav-order');
-
-      function checkNavBtn() {
-        navOrderBtn.style.display = window.innerWidth >= 640 ? 'inline-flex' : 'none';
-      }
-      checkNavBtn();
-      window.addEventListener('resize', checkNavBtn);
-    })();
-
-    /* ── Scroll reveal ── */
     function checkReveal() {
       document.querySelectorAll('.reveal').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 90) {
-          el.classList.add('active');
-        }
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
       });
     }
-    window.addEventListener('scroll', checkReveal, {
-      passive: true
-    });
-    checkReveal();
+    window.addEventListener('scroll', checkReveal); checkReveal();
 
-    /* ── Smoke canvas animation ── */
     (function() {
-      const canvas = document.getElementById('smoke-canvas');
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      function Particle() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + 50;
-        this.r = Math.random() * 80 + 40;
-        this.vy = Math.random() * .5 + .2;
-        this.op = Math.random() * .2;
-      }
-
-      Particle.prototype.tick = function() {
-        this.y -= this.vy;
-        if (this.y < -120) {
-          this.x = Math.random() * canvas.width;
-          this.y = canvas.height + 50;
-        }
-      };
-
-      Particle.prototype.draw = function() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 200, 200, ${this.op})`;
-        ctx.fill();
-      };
-
-      for (let i = 0; i < 20; i++) particles.push(new Particle());
-
-      function loop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          p.tick();
-          p.draw();
-        });
-        requestAnimationFrame(loop);
-      }
+      const canvas = document.getElementById('smoke-canvas'), ctx = canvas.getContext('2d');
+      let parts = [];
+      function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      window.addEventListener('resize', res); res();
+      function P() { this.x = Math.random()*canvas.width; this.y = canvas.height+50; this.r = Math.random()*100+50; this.vy = Math.random()*0.4+0.1; this.op = Math.random()*0.15; }
+      for(let i=0; i<15; i++) parts.push(new P());
+      function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); parts.forEach(p => { p.y -= p.vy; if(p.y < -150) p.y = canvas.height+50; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fillStyle = `rgba(200,200,200,${p.op})`; ctx.fill(); }); requestAnimationFrame(loop); }
       loop();
     })();
 
-   /* ── Lightbox / Slider ── */
-// Updated array with new filenames
-var imgs = [
-'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg',
-'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg',
-'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg'
-];
-
-
-    function buildDots() {
-      const dotsContainer = document.getElementById('lb-dots');
-      dotsContainer.innerHTML = '';
-      images.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'lb-dot' + (i === currentIndex ? ' on' : '');
-        dot.setAttribute('aria-label', 'Image ' + (i + 1));
-        dot.onclick = (e) => {
-          e.stopPropagation();
-          currentIndex = i;
-          showSlide();
-        };
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    function syncDots() {
-      document.querySelectorAll('.lb-dot').forEach((dot, i) => {
-        dot.classList.toggle('on', i === currentIndex);
-      });
-    }
-
-    function showSlide() {
-      const img = document.getElementById('slider-img');
-      img.classList.remove('in');
-      img.classList.add('out');
-
-      setTimeout(() => {
-        img.src = images[currentIndex];
-        img.onload = () => {
-          img.classList.remove('out');
-          img.classList.add('in');
-        };
-        // Handle cached images
-        if (img.complete && img.naturalWidth) {
-          img.classList.remove('out');
-          img.classList.add('in');
-        }
-      }, 220);
-      syncDots();
-    }
-
-    function openSlider(idx) {
-      currentIndex = idx;
-      buildDots();
-      showSlide();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeSlider() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function changeSlide(direction) {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      showSlide();
-    }
-
-    document.addEventListener('keydown', (e) => {
-      const lb = document.getElementById('lightbox');
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'ArrowLeft') changeSlide(-1);
-      if (e.key === 'ArrowRight') changeSlide(1);
-      if (e.key === 'Escape') closeSlider();
-    });
+    const menuImagesList = ['https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg','https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg','https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg'];
+    let menuIdx = 0;
+    function openSlider(idx) { menuIdx = idx; const img = document.getElementById('slider-img'); img.style.opacity = '0'; img.src = menuImagesList[menuIdx]; img.onload = () => img.style.opacity = '1'; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeSlider() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+    function changeSlide(n) { menuIdx = (menuIdx + n + menuImagesList.length) % menuImagesList.length; const img = document.getElementById('slider-img'); img.style.opacity = '0'; setTimeout(() => { img.src = menuImagesList[menuIdx]; img.onload = () => img.style.opacity = '1'; }, 200); }
+    function openOrderModal() { document.getElementById('order-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeOrderModal() { document.getElementById('order-modal').classList.remove('open'); if(!document.getElementById('lightbox').classList.contains('open')) document.body.style.overflow = ''; }
+    document.querySelectorAll('.btn-order-trigger').forEach(btn => btn.onclick = (e) => { e.preventDefault(); openOrderModal(); });
   </script>
-
 </body>
 </html>
