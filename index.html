@@ -72,7 +72,6 @@
     .topbar-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .topbar-right { display: flex; align-items: center; gap: 20px; }
     
-    /* Normal Instagram Button Styling */
     .insta-link { 
       display: flex; 
       align-items: center; 
@@ -120,10 +119,12 @@
       transition: 0.3s ease;
       white-space: nowrap;
     }
+    .btn-sm { padding: 0.6rem 1rem; font-size: 0.65rem; }
     .btn-red { background: var(--red); color: var(--white); }
     .btn-red:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(227, 24, 55, 0.3); }
     .btn-ghost { border: 1px solid var(--white); color: var(--white); backdrop-filter: blur(5px); }
     .btn-outline { border: 2px solid var(--red); color: var(--red); }
+    .btn-black { background: var(--black); color: white; }
 
     /* ── HERO ── */
     #hero {
@@ -142,6 +143,7 @@
     .hero-h1 { font-size: clamp(2.5rem, 9vw, 5.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
     .hero-h1 span { color: var(--red); }
     .hero-p { font-size: 1.1rem; color: #ddd; margin-bottom: 2.5rem; max-width: 600px; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
 
     /* ── SECTIONS ── */
     section { padding: 5rem 1.5rem; }
@@ -214,6 +216,8 @@
       margin-top: 1rem; transition: 0.3s ease;
     }
     .service-item:hover { border-color: var(--red); transform: translateY(-3px); }
+    .service-item.highlight { background: var(--red); border-color: var(--red); }
+    .service-item.highlight span { color: white; }
     .service-item .icon-wrapper { width: 40px; height: 40px; background: #f8f8f8; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
     .service-item img { width: 100%; height: 100%; object-fit: cover; }
     .service-item span { font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; color: #000; }
@@ -280,10 +284,11 @@
       <div class="nav-links">
         <a href="#menu">Menu</a>
         <a href="#story">Our Story</a>
-        <button class="btn-order-trigger" style="font-weight:700; color:var(--red); cursor:pointer;">Order Online</button>
+        <a href="tel:6613603026" style="font-weight:700; color:var(--red);">Call to Order</a>
       </div>
-      <div class="nav-ctas">
-        <button class="btn btn-red btn-sm btn-order-trigger">Order Now</button>
+      <div class="nav-ctas" style="display:flex; gap:10px;">
+        <a href="tel:6613603026" class="btn btn-outline btn-sm">Call Now</a>
+        <button class="btn btn-red btn-sm btn-order-trigger">Order Online</button>
       </div>
     </div>
   </nav>
@@ -298,8 +303,9 @@
         <h1 class="hero-h1">Authentic Fire,<br><span>Family</span> Soul</h1>
         <p class="hero-p">Experience 100% Halal Mediterranean flavors in Canyon Country. Greek and Armenian recipes made fresh daily.</p>
         <div class="hero-btns">
-          <a href="#menu" class="btn btn-red">View Menu</a>
-          <button class="btn btn-ghost btn-order-trigger">Order Delivery</button>
+          <a href="tel:6613603026" class="btn btn-red">Call to Order</a>
+          <a href="#menu" class="btn btn-ghost">View Menu</a>
+          <button class="btn btn-ghost btn-order-trigger">Delivery Apps</button>
         </div>
       </div>
     </div>
@@ -334,7 +340,7 @@
           <h2 class="section-title" style="text-align:left;">Mediterranean Soul</h2>
           <p style="line-height:1.8; color:var(--gray6);">Sierra Grill House was built on generations of traditions. We blend old-world recipes from Greece and Armenia with fresh, high-quality ingredients.</p>
           <div class="story-quote">"It makes our family happy when our customers enjoy their time and food."<br><span style="font-weight:700; font-style:normal; display:block; margin-top:10px;">— Alexandros B., Owner</span></div>
-          <button class="btn btn-red btn-order-trigger">Order Now</button>
+          <a href="tel:6613603026" class="btn btn-red">Call to Order</a>
         </div>
       </div>
     </div>
@@ -351,7 +357,7 @@
           </p>
           <div style="margin-bottom:2.5rem; display:flex; flex-wrap:wrap; gap:1rem;">
             <a href="https://www.google.com/maps/place/Sierra+Grill+House/@34.4156355,-118.4556959,16z/data=!4m15!1m8!3m7!1s0x80c2898f9ca053e3:0x6fbac75f251febc1!2sSierra+Grill+House!8m2!3d34.4155666!4d-118.4556895!10e9!16s%2Fg%2F11x5jx40qm!3m5!1s0x80c2898f9ca053e3:0x6fbac75f251febc1!8m2!3d34.4155666!4d-118.4556895!16s%2Fg%2F11x5jx40qm" target="_blank" class="btn btn-red btn-sm">Get Directions</a>
-            <a href="tel:6613603026" class="btn btn-outline btn-sm" style="color:white; border-color:white;">(661) 360-3026</a>
+            <a href="tel:6613603026" class="btn btn-outline btn-sm" style="color:white; border-color:white;">Call (661) 360-3026</a>
           </div>
           <p style="margin-bottom:1rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Order Delivery:</p>
           <div class="delivery-icon-row">
@@ -391,8 +397,14 @@
   <div id="order-modal" onclick="if(event.target===this)closeOrderModal()">
     <div class="modal-card">
       <div class="modal-close" onclick="closeOrderModal()">&times;</div>
-      <h3 style="font-family:'Cinzel'; margin-bottom:0.5rem;">Select Service</h3>
-      <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">Choose your delivery partner:</p>
+      <h3 style="font-family:'Cinzel'; margin-bottom:0.5rem;">Order Now</h3>
+      <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">Choose your preferred method:</p>
+      
+      <a href="tel:6613603026" class="service-item highlight">
+        <span>Call Directly(Pick Up)</span>
+        <div class="icon-wrapper" style="background: white;">📞</div>
+      </a>
+      
       <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="service-item"><span>DoorDash</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/DD.jpg" alt="DoorDash"></div></a>
       <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="service-item"><span>Uber Eats</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/UE.jpg" alt="Uber Eats"></div></a>
       <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="service-item"><span>Postmates</span><div class="icon-wrapper"><img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/PM.jpg" alt="Postmates"></div></a>
