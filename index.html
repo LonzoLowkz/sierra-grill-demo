@@ -1,338 +1,1567 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sierra Grill House | 100% Halal Mediterranean & Greek Grill</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,500;1,400&family=Handlee&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sierra Grill House | 100% Halal Mediterranean & Greek Grill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,500;1,400&family=Handlee&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --logo-red: #e31837;
-            --logo-black: #0a0a0a;
-            --off-white: #ffffff;
-            --warm-bg: #f9f7f5;
-        }
+  <style>
+    /* ── RESET ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background-color: var(--off-white);
-            color: var(--logo-black);
-            font-family: 'Lora', serif;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-            width: 100%;
-        }
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-        h1, h2, h3, .heading-font {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .handwritten { font-family: 'Handlee', cursive; color: var(--logo-red); }
-        .paper-texture { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
-        .hero-overlay { background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%); }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      background: none;
+    }
 
-        /* Fix for Hero Overlay on Mobile to keep text readable when centered */
-        @media (max-width: 768px) {
-            .hero-overlay { background: rgba(0,0,0,0.6); }
-        }
+    /* ── TOKENS ── */
+    :root {
+      --red: #e31837;
+      --red-dk: #b5102a;
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --warm: #f9f7f5;
+      --gray1: #f3f4f6;
+      --gray4: #9ca3af;
+      --gray6: #4b5563;
+    }
 
-        .btn-red {
-            background-color: var(--logo-red);
-            color: white;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    /* ── BASE ── */
+    body {
+      font-family: 'Lora', serif;
+      background: var(--white);
+      color: var(--black);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    }
 
-        .btn-red:hover {
-            background-color: var(--logo-black);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -10px rgba(227, 24, 55, 0.5);
-        }
+    h1,
+    h2,
+    h3 {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+    }
 
-        /* Delivery Partner Icons Centering */
-        .partner-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            padding: 10px;
-            border-radius: 12px;
-            height: 60px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 250px;
-            margin: 0 auto; /* Added for mobile centering */
-        }
-        @media (min-width: 768px) { .partner-link { margin: 0; } }
+    .handwritten {
+      font-family: 'Handlee', cursive;
+      color: var(--red);
+    }
 
-        .partner-link:hover { transform: scale(1.05); box-shadow: 0 10px 15px rgba(0,0,0,0.3); }
-        .partner-img { height: 100%; width: auto; object-fit: contain; }
+    /* ── ICONS ── */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
 
-        .menu-card {
-            background: white;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
-            border: 8px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px; /* Prevents card from being too wide on mobile */
-            margin: 0 auto;
-        }
-        .menu-card:hover { transform: translateY(-15px); border-color: var(--logo-red); }
+    /* ── TOP BAR ── */
+    #topbar {
+      background: var(--black);
+      color: var(--white);
+      padding: .5rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      position: relative;
+      z-index: 60;
+      gap: 1rem;
+    }
 
-        /* Lightbox Mobile Fix */
-        #lightbox {
-            backdrop-filter: blur(15px);
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 100;
-            padding: 10px;
-            align-items: center;
-            justify-content: center;
-        }
+    #topbar .left,
+    #topbar .right {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
 
-        #lightbox img {
-            max-height: 80vh;
-            max-width: 90%;
-            width: auto;
-            margin: auto;
-            display: block;
-            border-radius: 4px;
-            object-fit: contain;
-        }
+    #topbar a {
+      font-weight: 700;
+      font-style: italic;
+      transition: color .3s;
+    }
 
-        .lightbox-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            opacity: 0.7;
-            transition: 0.3s;
-            z-index: 110;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            padding: 5px;
-        }
-        .lightbox-btn:hover { opacity: 1; color: var(--logo-red); }
+    #topbar a:hover {
+      color: var(--red);
+    }
 
-        #smoke-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; opacity: 0.3; z-index: 2;
-        }
+    #topbar svg {
+      color: var(--red);
+    }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-    </style>
+    /* ── NAV ── */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #e5e7eb;
+      padding: .75rem 1.5rem;
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .nav-logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .nav-logo-text span {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 2rem;
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+    }
+
+    .nav-links a {
+      transition: color .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--red);
+    }
+
+    .nav-links a.hl {
+      color: var(--red);
+    }
+
+    .nav-ctas {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    @media(min-width:1024px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .7rem;
+      border-radius: .375rem;
+      padding: .9rem 2rem;
+      cursor: pointer;
+      transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      border: 2px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: var(--white);
+      border-color: var(--red);
+    }
+
+    .btn-red::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .15);
+      transform: translateX(-110%);
+      transition: transform .4s ease;
+    }
+
+    .btn-red:hover::after {
+      transform: translateX(0);
+    }
+
+    .btn-red:hover {
+      background: var(--red-dk);
+      border-color: var(--red-dk);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px -8px rgba(227, 24, 55, .6);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, .08);
+      border-color: var(--white);
+      color: var(--white);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-ghost::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+      z-index: 0;
+    }
+
+    .btn-ghost>* {
+      position: relative;
+      z-index: 1;
+      transition: color .35s ease;
+    }
+
+    .btn-ghost:hover::after {
+      transform: scaleX(1);
+    }
+
+    .btn-ghost:hover>* {
+      color: var(--black);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px -8px rgba(255, 255, 255, .25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .btn-outline:hover {
+      background: var(--red);
+      color: var(--white);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px -6px rgba(227, 24, 55, .5);
+    }
+
+    .btn-sm {
+      padding: .6rem 1.2rem;
+      font-size: .65rem;
+    }
+
+    .pulse-ring {
+      position: relative;
+    }
+
+    .pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 2px solid var(--red);
+      opacity: 0;
+      animation: pulseOut 2s ease-out infinite;
+    }
+
+    @keyframes pulseOut {
+      0% {
+        transform: scale(1);
+        opacity: .7
+      }
+
+      100% {
+        transform: scale(1.18);
+        opacity: 0
+      }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    #hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, .88) 0%, rgba(0, 0, 0, .5) 55%, rgba(0, 0, 0, .2) 100%);
+    }
+
+    @media(max-width:768px) {
+      .hero-overlay {
+        background: rgba(0, 0, 0, .62);
+      }
+    }
+
+    #smoke-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .3;
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media(min-width:768px) {
+      .hero-content {
+        text-align: left;
+      }
+    }
+
+    .hero-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    @media(min-width:768px) {
+      .hero-inner {
+        margin: 0;
+      }
+    }
+
+    .hero-tagline {
+      font-family: 'Handlee', cursive;
+      color: rgba(255, 255, 255, .9);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-h1 span {
+      color: var(--red);
+    }
+
+    .hero-p {
+      font-size: 1.1rem;
+      color: #e5e7eb;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media(min-width:768px) {
+      .hero-btns {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    @media(min-width:768px) {
+      section {
+        padding: 7rem 1.5rem;
+      }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      color: var(--red);
+      font-weight: 700;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .4em;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      margin-top: .75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .divider {
+      width: 6rem;
+      height: 6px;
+      background: var(--red);
+      border-radius: 9999px;
+      margin: .5rem auto 0;
+    }
+
+    /* ── MENU ── */
+    #menu {
+      background: var(--warm);
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .menu-title {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      letter-spacing: -.02em;
+    }
+
+    .menu-hint {
+      color: var(--gray4);
+      font-size: .8rem;
+      margin-top: .75rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    @media(min-width:768px) {
+      .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .menu-card {
+      background: var(--white);
+      border: 8px solid var(--white);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+      cursor: pointer;
+      transition: all .6s cubic-bezier(0.23, 1, 0.32, 1);
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-14px);
+      border-color: var(--red);
+      box-shadow: 0 30px 60px -10px rgba(227, 24, 55, .25);
+    }
+
+    .menu-card:hover .card-label {
+      color: var(--red);
+    }
+
+    .card-label {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: .95rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      text-align: center;
+      padding: 1.4rem 1rem;
+      transition: color .4s ease;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews {
+      background: var(--white);
+      border-top: 1px solid var(--gray1);
+      border-bottom: 1px solid var(--gray1);
+    }
+
+    .reviews-head {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media(min-width:768px) {
+      .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .review-card {
+      background: var(--warm);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: .25rem;
+      color: #f59e0b;
+      margin-bottom: 1.25rem;
+    }
+
+    .review-text {
+      font-style: italic;
+      color: var(--gray6);
+      font-size: .875rem;
+      text-align: center;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .review-author {
+      font-weight: 700;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--red);
+      text-align: center;
+    }
+
+    /* ── STORY ── */
+    #story {
+      background: var(--warm);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    @media(min-width:768px) {
+      .story-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .story-photo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .story-polaroid {
+      background: var(--white);
+      padding: 1.25rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+      border: 1px solid #e5e7eb;
+      max-width: 380px;
+      width: 100%;
+    }
+
+    @media(min-width:768px) {
+      .story-polaroid {
+        transform: rotate(2deg);
+      }
+    }
+
+    .story-polaroid img {
+      border-radius: 2px;
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    @media(min-width:768px) {
+      .story-polaroid img {
+        height: 400px;
+      }
+    }
+
+    .story-caption {
+      font-family: 'Handlee', cursive;
+      color: var(--red);
+      font-size: 1.4rem;
+      text-align: center;
+      margin-top: .75rem;
+    }
+
+    .story-text {
+      text-align: center;
+    }
+
+    @media(min-width:768px) {
+      .story-text {
+        text-align: left;
+      }
+    }
+
+    .story-h2 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .story-p {
+      color: var(--gray6);
+      line-height: 1.75;
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin: 1.25rem 0 1.75rem;
+    }
+
+    .story-quote {
+      background: var(--white);
+      padding: 1.75rem 2rem;
+      border-left: 6px solid var(--red);
+      font-style: italic;
+      color: #57534e;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
+      border-radius: 0 .5rem .5rem 0;
+      display: inline-block;
+      max-width: 420px;
+      text-align: left;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .story-quote-author {
+      display: block;
+      margin-top: .75rem;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--black);
+    }
+
+    .story-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media(min-width:768px) {
+      .story-btns {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ── ORDER ── */
+    #order {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    @media(min-width:768px) {
+      .order-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .order-left {
+      text-align: center;
+    }
+
+    @media(min-width:768px) {
+      .order-left {
+        text-align: left;
+      }
+    }
+
+    .order-h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      margin-bottom: .75rem;
+    }
+
+    .order-sub {
+      color: var(--gray4);
+      font-size: .8rem;
+      margin-bottom: 2rem;
+    }
+
+    .partners {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media(min-width:768px) {
+      .partners {
+        align-items: flex-start;
+      }
+    }
+
+    .partner-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      padding: .6rem;
+      border-radius: .75rem;
+      height: 56px;
+      width: 100%;
+      max-width: 240px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+      transition: all .3s ease;
+    }
+
+    .partner-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .35);
+    }
+
+    .partner-link img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    @media(min-width:768px) {
+      .contact-list {
+        align-items: flex-start;
+      }
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      color: var(--white);
+      transition: color .3s;
+    }
+
+    .contact-row:hover {
+      color: var(--red);
+    }
+
+    .contact-row svg {
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    .phone-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .order-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media(min-width:768px) {
+      .order-ctas {
+        justify-content: flex-start;
+      }
+    }
+
+    .map-wrap {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .45);
+      border: 8px solid rgba(255, 255, 255, .08);
+      height: 300px;
+    }
+
+    @media(min-width:768px) {
+      .map-wrap {
+        height: 430px;
+      }
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--gray1);
+    }
+
+    .footer-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-copy {
+      font-size: .6rem;
+      color: var(--gray4);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .97);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.open {
+      display: flex;
+      animation: lbIn .3s ease;
+    }
+
+    @keyframes lbIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    #slider-img {
+      max-height: 82vh;
+      max-width: 88%;
+      width: auto;
+      margin: auto;
+      display: block;
+      border-radius: 6px;
+      object-fit: contain;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .8);
+      transition: opacity .25s ease, transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #slider-img.out {
+      opacity: 0;
+      transform: scale(.93);
+    }
+
+    #slider-img.in {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #lb-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: var(--white);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 110;
+      transition: all .3s ease;
+    }
+
+    #lb-close:hover {
+      background: var(--red);
+      border-color: var(--red);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(227, 24, 55, .9);
+      color: var(--white);
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 110;
+      transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+    }
+
+    .lb-arrow:hover {
+      background: var(--red);
+      transform: translateY(-50%) scale(1.15);
+      box-shadow: 0 12px 30px rgba(227, 24, 55, .5);
+    }
+
+    #lb-prev {
+      left: 14px;
+    }
+
+    #lb-next {
+      right: 14px;
+    }
+
+    @media(min-width:768px) {
+      #lb-prev {
+        left: 32px;
+      }
+
+      #lb-next {
+        right: 32px;
+      }
+    }
+
+    #lb-dots {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 110;
+    }
+
+    .lb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .28);
+      cursor: pointer;
+      transition: all .3s ease;
+      border: none;
+    }
+
+    .lb-dot.on {
+      background: var(--red);
+      transform: scale(1.35);
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: all .8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .d1 {
+      transition-delay: .12s;
+    }
+
+    .d2 {
+      transition-delay: .24s;
+    }
+  </style>
 </head>
 
-<body class="paper-texture">
+<body>
 
-    <div class="bg-[var(--logo-black)] text-white py-2 px-6 flex justify-between items-center text-[10px] md:text-xs uppercase tracking-[0.2em] z-[60] relative">
-        <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3 text-[var(--logo-red)]"></i> 100% Halal Mediterranean Grill</span>
-        <span class="hidden md:flex items-center gap-2 font-bold italic"><i data-lucide="phone" class="w-3 h-3 text-[var(--logo-red)]"></i> (661) 360-3026</span>
+  <!-- ══ TOP BAR ══ -->
+  <div id="topbar">
+    <div class="left">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+      100% Halal Mediterranean Grill
     </div>
-
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 px-6 py-3">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" class="w-10 h-10 rounded-full" alt="Logo">
-                <div class="flex flex-col">
-                    <span class="text-xl md:text-2xl font-bold heading-font leading-none uppercase tracking-tight">Sierra <span class="text-[var(--logo-red)]">Grill House</span></span>
-                </div>
-            </a>
-            <div class="hidden lg:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
-                <a href="#menu" class="hover:text-[var(--logo-red)] transition-colors">Menu</a>
-                <a href="#story" class="hover:text-[var(--logo-red)] transition-colors">Our Story</a>
-                <a href="#reviews" class="hover:text-[var(--logo-red)] transition-colors">Reviews</a>
-                <a href="#order" class="hover:text-[var(--logo-red)] transition-colors text-[var(--logo-red)]">Order Online</a>
-            </div>
-            <a href="tel:6613603026" class="btn-red px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg rounded">
-                <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call
-            </a>
-        </div>
-    </nav>
-
-    <section class="relative min-h-[85vh] flex items-center overflow-hidden">
-        <canvas id="smoke-canvas"></canvas>
-        <div class="absolute inset-0 -z-10">
-            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" class="w-full h-full object-cover" alt="Background">
-            <div class="absolute inset-0 hero-overlay"></div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 text-center md:text-left">
-            <div class="max-w-2xl reveal active mx-auto md:mx-0">
-                <p class="handwritten text-2xl md:text-3xl mb-4 text-white opacity-90">Join our table in Canyon Country</p>
-                <h1 class="text-4xl md:text-8xl heading-font mb-6 leading-[1.1] text-white">Authentic Fire, <br><span class="text-[var(--logo-red)]">Family</span> Soul</h1>
-                <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
-                    100% Halal flame-grilled flavors. Greek and Armenian recipes passed down through generations.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
-                    <a href="#menu" class="btn-red px-12 py-5 text-center font-bold uppercase tracking-widest text-xs shadow-2xl">View the Menu</a>
-                    <a href="#order" class="bg-white/10 backdrop-blur-md border-2 border-white text-white px-12 py-5 text-center font-bold hover:bg-white hover:text-black transition-all uppercase tracking-widest text-xs">Order Online</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="menu" class="py-20 md:py-32 bg-[var(--warm-bg)]">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="mb-16 md:mb-24 reveal">
-                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Freshly Prepared</span>
-                <h2 class="text-5xl md:text-8xl heading-font mt-4 mb-6 tracking-tighter">THE MENU</h2>
-                <div class="w-24 h-1.5 bg-[var(--logo-red)] mx-auto rounded-full"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 relative z-10 justify-items-center">
-                <div class="menu-card reveal w-full" onclick="openSlider(0)">
-                    <img src="https://i.imgur.com/23YXNNB.jpg" class="w-full h-auto" alt="Menu Plates">
-                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Plates</p>
-                </div>
-                <div class="menu-card reveal w-full" style="transition-delay: 0.1s" onclick="openSlider(1)">
-                    <img src="https://i.imgur.com/Oo0yhqX.jpg" class="w-full h-auto" alt="Menu Appetizers">
-                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Appetizers & Drinks</p>
-                </div>
-                <div class="menu-card reveal w-full" style="transition-delay: 0.2s" onclick="openSlider(2)">
-                    <img src="https://i.imgur.com/WVPKgPk.jpg" class="w-full h-auto" alt="Menu Wraps">
-                    <p class="text-center py-6 heading-font font-bold text-xl uppercase tracking-widest">Wraps & Salads</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="py-20 md:py-32 px-6 bg-white border-y border-gray-100">
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="text-center mb-20 reveal">
-                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Kind Words</span>
-                <h2 class="text-4xl md:text-5xl heading-font mt-4 italic">Neighbor Reviews</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 justify-items-center">
-                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm">
-                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
-                    <p class="italic text-gray-600 mb-8 text-sm text-center">"The filet mignon plate was so tender. The Greek salad was exactly like the original in Greece!"</p>
-                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Yelp Review</p>
-                </div>
-                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm" style="transition-delay: 0.1s">
-                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
-                    <p class="italic text-gray-600 mb-8 text-sm text-center">"Hidden gem for sure. The staff are wonderful, and the place is spotless. 10/10."</p>
-                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Tina O.</p>
-                </div>
-                <div class="bg-[var(--warm-bg)] p-10 rounded-2xl shadow-sm reveal w-full max-w-sm" style="transition-delay: 0.2s">
-                    <div class="flex justify-center text-amber-500 mb-6"><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i></div>
-                    <p class="italic text-gray-600 mb-8 text-sm text-center">"Excellent service. The lamb chops are excellent! decorated simply and nicely."</p>
-                    <p class="font-bold text-xs uppercase tracking-widest text-[var(--logo-red)] text-center">— Cher H.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="story" class="py-20 md:py-32 px-6 bg-[var(--warm-bg)]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
-            <div class="relative reveal flex justify-center">
-                <div class="bg-white p-5 shadow-2xl md:rotate-2 border border-gray-100 relative z-10 max-w-[350px] md:max-w-[400px]">
-                    <img src="https://s3-media0.fl.yelpcdn.com/bphoto/1Lz_JyZBbQ4MVed-_RR3cw/o.jpg" class="rounded-sm h-[350px] md:h-[400px] w-full object-cover" alt="Exterior">
-                    <p class="handwritten text-2xl text-center mt-4">Cooking with heart</p>
-                </div>
-            </div>
-            
-            <div class="reveal text-center md:text-left">
-                <span class="text-[var(--logo-red)] font-bold uppercase tracking-[0.4em] text-[10px]">Our Roots</span>
-                <h2 class="text-4xl md:text-6xl heading-font mt-6 mb-10 leading-tight">Mediterranean Soul <br>& 100% Halal</h2>
-                <p class="text-gray-600 leading-relaxed text-lg font-light mb-8 max-w-lg mx-auto md:mx-0">Sierra Grill House was built on generations of culinary traditions. We blend old-world recipes from Greece and Armenia with fresh, quality ingredients.</p>
-                
-                <div class="bg-white p-8 border-l-[6px] border-[var(--logo-red)] italic text-stone-700 shadow-xl rounded-r-lg text-left inline-block max-w-sm mx-auto md:mx-0">
-                    "It makes our family happy when our customers enjoy their time and food." <br>
-                    <span class="block mt-4 font-bold not-italic text-[var(--logo-black)]">— Alexandros B., Owner</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="order" class="py-20 md:py-32 px-6 bg-[var(--logo-black)] text-white">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal text-center md:text-left">
-                <h2 class="text-4xl heading-font mb-4 italic uppercase tracking-widest">Order Now</h2>
-                <p class="text-gray-400 mb-10 text-sm">Delivery via our partners:</p>
-                
-                <div class="flex flex-col items-center md:items-start gap-6 mb-16">
-                    <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="partner-link">
-                        <img src="https://www.shutterstock.com/image-vector/kerala-india-09082023-doordash-food-600nw-2344891519.jpg" alt="DoorDash" class="partner-img">
-                    </a>
-                    <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
-                        <img src="https://img.icons8.com/color/1200/uber-eats-app.jpg" alt="Uber Eats" class="partner-img">
-                    </a>
-                    <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" class="partner-link">
-                        <img src="https://techcrunch.com/wp-content/uploads/2013/05/newpmlogo.png" alt="Postmates" class="partner-img">
-                    </a>
-                </div>
-
-                <div class="space-y-8 flex flex-col items-center md:items-start">
-                    <div class="flex items-center gap-6">
-                        <i data-lucide="map-pin" class="text-[var(--logo-red)]"></i>
-                        <p class="text-md md:text-lg">27540 Sierra Hwy, Canyon Country, CA 91351</p>
-                    </div>
-                    <div class="flex items-center gap-6">
-                        <i data-lucide="phone" class="text-[var(--logo-red)] text-2xl"></i>
-                        <p class="text-2xl md:text-3xl font-bold">(661) 360-3026</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="rounded-2xl overflow-hidden shadow-2xl border-[8px] border-white/10 h-[300px] md:h-[400px] reveal">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.758362635467!2d-118.4682442!3d34.4328574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28f090d800001%3A0x6d705c8628b0f43!2s27540%20Sierra%20Hwy%2C%20Canyon%20Country%2C%20CA%2091351!5e0!3m2!1sen!2sus!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 px-6 bg-white text-center border-t border-gray-100">
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">© 2026 Sierra Grill House. 100% Halal Mediterranean soul.</p>
-    </footer>
-
-    <div id="lightbox" onclick="if(event.target.id === 'lightbox') closeSlider()">
-        <button onclick="closeSlider()" class="absolute top-6 right-6 text-white/50 hover:text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
-        <button onclick="changeSlide(-1)" class="lightbox-btn left-2 md:left-10"><i data-lucide="chevron-left" class="w-10 h-10 md:w-12 md:h-12"></i></button>
-        <img id="slider-img" src="">
-        <button onclick="changeSlide(1)" class="lightbox-btn right-2 md:right-10"><i data-lucide="chevron-right" class="w-10 h-10 md:w-12 md:h-12"></i></button>
+    <div class="right">
+      <a href="tel:6613603026">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+        </svg>
+        (661) 360-3026
+      </a>
     </div>
+  </div>
 
-    <script>
-        lucide.createIcons();
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/eecfd13b-61b6-4107-807d-52596fbd62fd.png" alt="Sierra Grill House logo">
+        <div class="nav-logo-text">Sierra <span>Grill House</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="#menu">Menu</a>
+        <a href="#story">Our Story</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#order" class="hl">Order Online</a>
+      </div>
+      <div class="nav-ctas">
+        <a href="#order" class="btn btn-red btn-sm" id="nav-order" style="display:none;">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          Order Now
+        </a>
+        <a href="tel:6613603026" class="btn btn-red btn-sm pulse-ring">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          Call
+        </a>
+      </div>
+    </div>
+  </nav>
 
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
-            });
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <canvas id="smoke-canvas"></canvas>
+    <div id="hero-bg">
+      <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XLqZkY1oTWH6IfNe4UfRBg/o.jpg" alt="Grill">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-inner reveal active">
+        <p class="hero-tagline">Join our table in Canyon Country</p>
+        <h1 class="hero-h1">Authentic Fire,<br><span>Family</span> Soul</h1>
+        <p class="hero-p">100% Halal flame-grilled flavors. Greek and Armenian recipes passed down through generations.</p>
+        <div class="hero-btns">
+          <a href="#menu" class="btn btn-red">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+            </svg>
+            View Full Menu
+          </a>
+          <a href="#order" class="btn btn-red">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 01-8 0" />
+            </svg>
+            Order Now
+          </a>
+          <a href="tel:6613603026" class="btn btn-ghost">
+            <svg class="icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            <span>Call to Order</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- ══ MENU ══ -->
+
+<section id="menu" style="background:var(--warm);">
+<div class="container">
+<div class="menu-header reveal">
+<span class="section-tag">Freshly Prepared</span>
+<h2 class="section-title menu-title">The Menu</h2>
+<div class="divider"></div>
+<p class="menu-hint">Click any section to enlarge</p>
+</div>
+<div class="menu-grid">
+<div class="menu-card reveal" onclick="openSlider(0)">
+<!-- Updated to menu1.jpeg -->
+<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg" alt="Plates menu" loading="lazy">
+<div class="card-label">Plates</div>
+</div>
+<div class="menu-card reveal d1" onclick="openSlider(1)">
+<!-- Updated to menu2.jpeg -->
+<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg" alt="Appetizers and Drinks menu" loading="lazy">
+<div class="card-label">Appetizers &amp; Drinks</div>
+</div>
+<div class="menu-card reveal d2" onclick="openSlider(2)">
+<!-- Updated to menu3.jpeg -->
+<img src="https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg" alt="Wraps and Salads menu" loading="lazy">
+<div class="card-label">Wraps &amp; Salads</div>
+</div>
+</div>
+<div class="cta-row reveal">
+<a href="#order" class="btn btn-red">
+<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<path d="M16 10a4 4 0 01-8 0" />
+</svg>
+Order Now
+</a>
+<a href="tel:6613603026" class="btn btn-outline">
+<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+</svg>
+Call to Order
+</a>
+</div>
+</div>
+</section>
+  <!-- ══ REVIEWS ══ -->
+  <section id="reviews">
+    <div class="container">
+      <div class="reviews-head reveal">
+        <span class="section-tag">Kind Words</span>
+        <h2 class="section-title" style="font-size:2rem;font-style:italic;">Neighbor Reviews</h2>
+      </div>
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card reveal">
+          <div class="stars">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <p class="review-text">"The filet mignon plate was so tender. The Greek salad was exactly like the original in Greece!"</p>
+          <p class="review-author">— Yelp Review</p>
+        </div>
+        <!-- Review 2 -->
+        <div class="review-card reveal d1">
+          <div class="stars">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <p class="review-text">"Hidden gem for sure. The staff are wonderful, and the place is spotless. 10/10."</p>
+          <p class="review-author">— Tina O.</p>
+        </div>
+        <!-- Review 3 -->
+        <div class="review-card reveal d2">
+          <div class="stars">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <p class="review-text">"Excellent service. The lamb chops are excellent! Decorated simply and nicely."</p>
+          <p class="review-author">— Cher H.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STORY ══ -->
+  <section id="story">
+    <div class="story-grid">
+      <div class="story-photo-wrap reveal">
+        <div class="story-polaroid">
+          <img src="https://s3-media0.fl.yelpcdn.com/bphoto/1Lz_JyZBbQ4MVed-_RR3cw/o.jpg" alt="Restaurant exterior">
+          <p class="story-caption">Cooking with heart</p>
+        </div>
+      </div>
+      <div class="story-text reveal d1">
+        <span class="section-tag">Our Roots</span>
+        <h2 class="story-h2 section-title">Mediterranean Soul<br>&amp; 100% Halal</h2>
+        <p class="story-p">Sierra Grill House was built on generations of culinary traditions. We blend old-world recipes from Greece and Armenia with fresh, quality ingredients.</p>
+        <div class="story-quote">
+          "It makes our family happy when our customers enjoy their time and food."
+          <span class="story-quote-author">— Alexandros B., Owner</span>
+        </div>
+        <div class="story-btns">
+          <a href="#menu" class="btn btn-red">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+            </svg>
+            View Full Menu
+          </a>
+          <a href="tel:6613603026" class="btn btn-outline">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            Call to Order
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ORDER ══ -->
+  <section id="order">
+    <div class="order-grid">
+      <div class="order-left reveal">
+        <h2 class="order-h2">Order Now</h2>
+        <p class="order-sub">Delivery via our partners:</p>
+        <div class="partners">
+          <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" rel="noopener noreferrer" class="partner-link">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/DoorDash_Logo.svg/2560px-DoorDash_Logo.svg.png" alt="DoorDash">
+          </a>
+          <a href="https://www.ubereats.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" rel="noopener noreferrer" class="partner-link">
+            <img src="https://img.icons8.com/color/1200/uber-eats-app.jpg" alt="Uber Eats">
+          </a>
+          <a href="https://postmates.com/store/sierra-grill-house/H-yyYmiQUZ6ZqQ_LIqHB2w" target="_blank" rel="noopener noreferrer" class="partner-link">
+            <img src="https://techcrunch.com/wp-content/uploads/2013/05/newpmlogo.png" alt="Postmates">
+          </a>
+        </div>
+        <div class="contact-list">
+          <a href="https://maps.google.com/?q=27540+Sierra+Hwy+Canyon+Country+CA+91351" target="_blank" class="contact-row">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>27540 Sierra Hwy, Canyon Country, CA 91351</span>
+          </a>
+          <a href="tel:6613603026" class="contact-row">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            <span class="phone-num">(661) 360-3026</span>
+          </a>
+        </div>
+        <div class="order-ctas">
+          <a href="tel:6613603026" class="btn btn-red pulse-ring">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            Call to Order
+          </a>
+          <a href="https://www.doordash.com/en/store/sierra-grill-house-canyon-country-34977365/73552946/" target="_blank" class="btn btn-ghost">
+            <svg class="icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="1" y="3" width="15" height="13" />
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+              <circle cx="5.5" cy="18.5" r="2.5" />
+              <circle cx="18.5" cy="18.5" r="2.5" />
+            </svg>
+            <span>Get Delivery</span>
+          </a>
+        </div>
+      </div>
+      <div class="map-wrap reveal d1">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.758362635467!2d-118.4682442!3d34.4328574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28f090d800001%3A0x6d705c8628b0f43!2s27540%20Sierra%20Hwy%2C%20Canyon%20Country%2C%20CA%2091351!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen loading="lazy" title="Sierra Grill House location"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-btns">
+      <a href="tel:6613603026" class="btn btn-red btn-sm">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+        </svg>
+        (661) 360-3026
+      </a>
+      <a href="#order" class="btn btn-outline btn-sm">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 01-8 0" />
+        </svg>
+        Order Online
+      </a>
+    </div>
+    <p class="footer-copy">© 2026 Sierra Grill House &nbsp;·&nbsp; 27540 Sierra Hwy, Canyon Country, CA 91351 &nbsp;·&nbsp; 100% Halal Mediterranean Soul</p>
+  </footer>
+
+  <!-- ══ LIGHTBOX ══ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Menu viewer" onclick="if(event.target===this)closeSlider()">
+    <button id="lb-close" onclick="closeSlider()" aria-label="Close">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+    <button id="lb-prev" class="lb-arrow" onclick="changeSlide(-1)" aria-label="Previous">
+      <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+    <img id="slider-img" src="" alt="Menu page" class="out">
+    <button id="lb-next" class="lb-arrow" onclick="changeSlide(1)" aria-label="Next">
+      <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+    <div id="lb-dots" role="tablist"></div>
+  </div>
+
+  <script>
+    /* ── Nav Order button show/hide ── */
+    (function() {
+      const navOrderBtn = document.getElementById('nav-order');
+
+      function checkNavBtn() {
+        navOrderBtn.style.display = window.innerWidth >= 640 ? 'inline-flex' : 'none';
+      }
+      checkNavBtn();
+      window.addEventListener('resize', checkNavBtn);
+    })();
+
+    /* ── Scroll reveal ── */
+    function checkReveal() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 90) {
+          el.classList.add('active');
         }
-        window.addEventListener("scroll", reveal);
-        reveal();
+      });
+    }
+    window.addEventListener('scroll', checkReveal, {
+      passive: true
+    });
+    checkReveal();
 
-        const canvas = document.getElementById('smoke-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
+    /* ── Smoke canvas animation ── */
+    (function() {
+      const canvas = document.getElementById('smoke-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
 
-        class Particle {
-            constructor() { this.reset(); this.y = Math.random() * canvas.height; }
-            reset() { this.x = Math.random() * canvas.width; this.y = canvas.height + 50; this.size = Math.random() * 80 + 40; this.speedY = Math.random() * 0.5 + 0.2; this.opacity = Math.random() * 0.2; }
-            update() { this.y -= this.speedY; if (this.y < -100) this.reset(); }
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(200, 200, 200, ${this.opacity})`; ctx.fill(); }
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 50;
+        this.r = Math.random() * 80 + 40;
+        this.vy = Math.random() * .5 + .2;
+        this.op = Math.random() * .2;
+      }
+
+      Particle.prototype.tick = function() {
+        this.y -= this.vy;
+        if (this.y < -120) {
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height + 50;
         }
-        function init() { particles = Array.from({length: 20}, () => new Particle()); }
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
-        init(); animate();
+      };
 
-        const menuImages = ["https://i.imgur.com/23YXNNB.jpg", "https://i.imgur.com/Oo0yhqX.jpg", "https://i.imgur.com/WVPKgPk.jpg"];
-        let currentSlide = 0;
-        function openSlider(index) { currentSlide = index; updateSlider(); document.getElementById('lightbox').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeSlider() { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = 'auto'; }
-        function changeSlide(dir) { currentSlide = (currentSlide + dir + menuImages.length) % menuImages.length; updateSlider(); }
-        function updateSlider() { const img = document.getElementById('slider-img'); img.style.opacity = '0'; setTimeout(() => { img.src = menuImages[currentSlide]; img.style.opacity = '1'; }, 150); }
-    </script>
+      Particle.prototype.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200, 200, 200, ${this.op})`;
+        ctx.fill();
+      };
+
+      for (let i = 0; i < 20; i++) particles.push(new Particle());
+
+      function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.tick();
+          p.draw();
+        });
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+   /* ── Lightbox / Slider ── */
+// Updated array with new filenames
+var imgs = [
+'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu1.jpeg',
+'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu2.jpeg',
+'https://raw.githubusercontent.com/LonzoLowkz/sierra-grill-demo/main/menu3.jpeg'
+];
+
+
+    function buildDots() {
+      const dotsContainer = document.getElementById('lb-dots');
+      dotsContainer.innerHTML = '';
+      images.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'lb-dot' + (i === currentIndex ? ' on' : '');
+        dot.setAttribute('aria-label', 'Image ' + (i + 1));
+        dot.onclick = (e) => {
+          e.stopPropagation();
+          currentIndex = i;
+          showSlide();
+        };
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function syncDots() {
+      document.querySelectorAll('.lb-dot').forEach((dot, i) => {
+        dot.classList.toggle('on', i === currentIndex);
+      });
+    }
+
+    function showSlide() {
+      const img = document.getElementById('slider-img');
+      img.classList.remove('in');
+      img.classList.add('out');
+
+      setTimeout(() => {
+        img.src = images[currentIndex];
+        img.onload = () => {
+          img.classList.remove('out');
+          img.classList.add('in');
+        };
+        // Handle cached images
+        if (img.complete && img.naturalWidth) {
+          img.classList.remove('out');
+          img.classList.add('in');
+        }
+      }, 220);
+      syncDots();
+    }
+
+    function openSlider(idx) {
+      currentIndex = idx;
+      buildDots();
+      showSlide();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSlider() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function changeSlide(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      showSlide();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'Escape') closeSlider();
+    });
+  </script>
+
 </body>
 </html>
